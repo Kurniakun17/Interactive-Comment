@@ -10,6 +10,7 @@ interface BottomSection {
   isReplyActive?: boolean;
   onEditClickHandler: () => void;
   onSendEditHandler: () => void;
+  onDeleteHandler: () => void;
   setDatas: React.Dispatch<React.SetStateAction<Types.Comment[]>>;
   setActiveIndex: React.Dispatch<React.SetStateAction<number>>;
 }
@@ -22,6 +23,7 @@ export const BottomSection = ({
   isReplyActive,
   onEditClickHandler,
   onSendEditHandler,
+  onDeleteHandler,
   setDatas,
   setActiveIndex,
 }: BottomSection) => {
@@ -45,7 +47,10 @@ export const BottomSection = ({
           </button>
         ) : (
           <div className="flex gap-3 px-3">
-            <button className="flex items-center gap-1">
+            <button
+              className="flex items-center gap-1"
+              onClick={onDeleteHandler}
+            >
               <img src="./images/icon-delete.svg" alt="edit-icon" />
               <p className="text-softRed font-bold">Delete</p>
             </button>

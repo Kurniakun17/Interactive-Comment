@@ -4,7 +4,9 @@ import { TopSection } from "./TopSection";
 import { BottomSection } from "./BottomSection";
 import * as Types from "../utils/interfaces";
 import { AddComment } from "./AddComment";
-import { editComment } from "../utils/helpers";
+import { deleteComment, editComment } from "../utils/helpers";
+import Modal from "react-modal";
+import { ModalDelete } from "./ModalDelete";
 
 interface Comments extends Comment {
   currentUser: CurrentUser;
@@ -31,6 +33,7 @@ export const Comments = ({
   closeReply,
 }: Comments) => {
   const [isEditActive, setIsEditActive] = useState(false);
+  const [isModalActive, setIsModalActive] = useState(false);
   const editInput = useRef(content);
 
   const onInputChangeHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -42,13 +45,25 @@ export const Comments = ({
   };
 
   const onSendEditHandler = () => {
-    console.log("dijalankan")
     setDatas((prev: Types.Comment[]) => {
       editComment(prev, id, editInput.current);
       return [...prev];
     });
     setIsEditActive(false);
   };
+
+  const onDeleteHandler = () => {
+    setIsModalActive(!isModalActive);
+  };
+
+  const onModalDeleteHandler = () => {
+    setDatas((prev: Types.Comment[]) => {
+      deleteComment(prev, id);
+      return [...prev];
+    });
+  };
+
+  Modal.setAppElement("#root");
 
   return (
     <div className="flex flex-col max-w-[600px] gap-2">
@@ -86,6 +101,7 @@ export const Comments = ({
           setActiveIndex={setActiveReplyIndex}
           onEditClickHandler={onEditClickHandler}
           onSendEditHandler={onSendEditHandler}
+          onDeleteHandler={onDeleteHandler}
         ></BottomSection>
       </div>
       {isReplyActive && (
@@ -119,6 +135,13 @@ export const Comments = ({
       ) : (
         ""
       )}
+      <ModalDelete
+        isModalActive={isModalActive}
+        onCloseHandler={() => {
+          setIsModalActive(false);
+        }}
+        onModalDeleteHandler={onModalDeleteHandler}
+      ></ModalDelete>
     </div>
   );
 };

@@ -37,7 +37,6 @@ export function addReply(
       parentComment["replies"] = [];
     }
     parentComment.replies?.push(reply);
-    console.log(parentComment);
   }
 }
 
@@ -53,6 +52,22 @@ export function editComment(
   }
 }
 
+export function deleteComment(comments: Comment[], id: number) {
+  for (let i = 0; i < comments.length; i++) {
+    const comment = comments[i];
+    if (comment.id === id) {
+      comments.splice(i, 1);
+      return true;
+    }
+    if (comment.replies && comment.replies.length > 0) {
+      if (deleteComment(comment.replies, id)) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
 type generateNewCommentProps = {
   content: string;
   imagePng: string;
@@ -66,6 +81,8 @@ export function generateNewComment({
   imageWebp,
   username,
 }: generateNewCommentProps) {
+  const date = new Date();
+  console.log(date);
   return {
     id: Math.random() * 1000,
     content,
