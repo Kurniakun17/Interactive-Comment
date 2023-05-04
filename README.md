@@ -29,7 +29,7 @@ Users should be able to:
 
 ### Screenshot
 
-![](./screenshot.jpg)
+![](https://github.com/Kurniakun17/Interactive-Comment/blob/main/image_2023-05-04_214013059.png)
 
 ### Links
 
