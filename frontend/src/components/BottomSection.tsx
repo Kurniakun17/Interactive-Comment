@@ -9,6 +9,7 @@ interface BottomSection {
   isEditActive: boolean;
   isReplyActive?: boolean;
   onEditClickHandler: () => void;
+  onSendEditHandler: () => void;
   setDatas: React.Dispatch<React.SetStateAction<Types.Comment[]>>;
   setActiveIndex: React.Dispatch<React.SetStateAction<number>>;
 }
@@ -20,6 +21,7 @@ export const BottomSection = ({
   isEditActive,
   isReplyActive,
   onEditClickHandler,
+  onSendEditHandler,
   setDatas,
   setActiveIndex,
 }: BottomSection) => {
@@ -35,7 +37,10 @@ export const BottomSection = ({
       <Score score={score} setDatas={setDatas}></Score>
       {isAuthor ? (
         isEditActive ? (
-          <button className={`bg-moderateBlue px-4 py-2 text-white rounded-md`}>
+          <button
+            className={`bg-moderateBlue px-4 py-2 text-white rounded-md`}
+            onClick={onSendEditHandler}
+          >
             UPDATE
           </button>
         ) : (

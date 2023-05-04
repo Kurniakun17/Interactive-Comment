@@ -4,6 +4,7 @@ import { TopSection } from "./TopSection";
 import { BottomSection } from "./BottomSection";
 import * as Types from "../utils/interfaces";
 import { AddComment } from "./AddComment";
+import { editComment } from "../utils/helpers";
 
 interface Comments extends Comment {
   currentUser: CurrentUser;
@@ -38,6 +39,15 @@ export const Comments = ({
 
   const onEditClickHandler = () => {
     setIsEditActive(!isEditActive);
+  };
+
+  const onSendEditHandler = () => {
+    console.log("dijalankan")
+    setDatas((prev: Types.Comment[]) => {
+      editComment(prev, id, editInput.current);
+      return [...prev];
+    });
+    setIsEditActive(false);
   };
 
   return (
@@ -75,6 +85,7 @@ export const Comments = ({
           setDatas={setDatas}
           setActiveIndex={setActiveReplyIndex}
           onEditClickHandler={onEditClickHandler}
+          onSendEditHandler={onSendEditHandler}
         ></BottomSection>
       </div>
       {isReplyActive && (

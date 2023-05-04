@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { CurrentUser } from "../utils/interfaces";
 import * as Types from "../utils/interfaces";
-import { addReply, findCommentObj } from "../utils/helpers";
+import { addReply, editComment, findCommentObj, generateNewComment } from "../utils/helpers";
 
 interface AddComment {
   id: number;
@@ -31,27 +31,18 @@ export const AddComment = ({
   const onSendHandler = () => {
     setContent("");
     setDatas((prev: Types.Comment[]) => {
-      let newDatas: Types.Comment[];
-      const newComment = {
-        id: Math.random() * 1000,
+      const newComment = generateNewComment({
         content,
-        createdAt: "now",
-        score: 0,
-        user: {
-          image: {
-            png: currentUser.image.png,
-            webp: currentUser.image.webp,
-          },
-          username: currentUser.username,
-        },
-        replies: [],
-      } as Types.Comment;
+        imagePng: currentUser.image.png,
+        imageWebp: currentUser.image.webp,
+        username: currentUser.username,
+      }) as Types.Comment;
       if (type === "Add Reply") {
         newComment["replyingTo"] = replyingTo?.username;
         addReply(prev, id, newComment);
         return prev;
       }
-      return (newDatas = [...prev, newComment]);
+      return [...prev, newComment];
     });
     closeReply();
   };

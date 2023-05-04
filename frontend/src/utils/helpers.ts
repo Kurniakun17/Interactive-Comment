@@ -40,3 +40,44 @@ export function addReply(
     console.log(parentComment);
   }
 }
+
+export function editComment(
+  comments: Comment[],
+  parentCommentId: number,
+  reply: string
+) {
+  const parentComment = findCommentObj(comments, parentCommentId);
+
+  if (parentComment) {
+    parentComment.content = reply;
+  }
+}
+
+type generateNewCommentProps = {
+  content: string;
+  imagePng: string;
+  imageWebp: string;
+  username: string;
+};
+
+export function generateNewComment({
+  content,
+  imagePng,
+  imageWebp,
+  username,
+}: generateNewCommentProps) {
+  return {
+    id: Math.random() * 1000,
+    content,
+    createdAt: "now",
+    score: 0,
+    user: {
+      image: {
+        png: imagePng,
+        webp: imageWebp,
+      },
+      username,
+    },
+    replies: [],
+  };
+}
