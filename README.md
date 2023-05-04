@@ -33,8 +33,8 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: interactive-comment-section-kurni.vercel.app
-- Live Site URL:  interactive-comment-section-kurni.vercel.app
+- Solution URL: (interactive-comment-section-kurni.vercel.app)
+- Live Site URL:  (interactive-comment-section-kurni.vercel.app)
 
 ## My process
 
@@ -44,7 +44,7 @@ Users should be able to:
 - TailwindCSS
 
 ### What I learned
-From this project, i learned a lot about how does TypeScripts work and it's making me to be getting used to it. But the most important lesson that i learnt is how does a reference type variable works such and built a recursive function to manipulate the origin object.  
+From this project, i learned a lot about how does TypeScripts work and it's making me get used to it. But the most important lesson that i learnt is how does a reference type variable works such and built a recursive function to manipulate the origin object.  
 
 ```js
 export function deleteComment(comments: Comment[], id: number) {
