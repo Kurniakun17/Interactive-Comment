@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import data from "../utils/data.json";
 import * as Types from "../utils/interfaces";
-import { Comments } from "../components/Comments";
+import { Comment } from "./Comment";
 import { AddComment } from "./AddComment";
 
 export const CommentsList = () => {
   const [currentUser, setCurrentUser] = useState<Types.CurrentUser>(
     data.currentUser
   );
-  const [datas, setDatas] = useState<Types.Comment[]>(data.comments);
+  const [datas, setDatas] = useState<Types.CommentProps[]>(data.comments);
   const [activeReplyIndex, setActiveReplyIndex] = useState(-1);
 
   const closeReply = () => {
@@ -17,9 +17,9 @@ export const CommentsList = () => {
 
   return (
     <div className="flex flex-col gap-4">
-      {datas.map((comment: Types.Comment, index: number) => {
+      {datas.map((comment: Types.CommentProps, index: number) => {
         return (
-          <Comments
+          <Comment
             key={index}
             activeReplyIndex={activeReplyIndex}
             setActiveReplyIndex={setActiveReplyIndex}
@@ -28,7 +28,7 @@ export const CommentsList = () => {
             currentUser={currentUser}
             setDatas={setDatas}
             closeReply={closeReply}
-          ></Comments>
+          ></Comment>
         );
       })}
       <AddComment

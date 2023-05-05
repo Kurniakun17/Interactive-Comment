@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { CurrentUser } from "../utils/interfaces";
 import * as Types from "../utils/interfaces";
-import { addReply, editComment, findCommentObj, generateNewComment } from "../utils/helpers";
+import { addReply, generateNewComment } from "../utils/helpers";
 
 interface AddComment {
   id: number;
@@ -9,7 +9,7 @@ interface AddComment {
   type: string;
   currentUser: CurrentUser;
   replyingTo?: { id: number; username: string };
-  setDatas: React.Dispatch<React.SetStateAction<Types.Comment[]>>;
+  setDatas: React.Dispatch<React.SetStateAction<Types.CommentProps[]>>;
   closeReply: () => void;
 }
 
@@ -30,13 +30,13 @@ export const AddComment = ({
 
   const onSendHandler = () => {
     setContent("");
-    setDatas((prev: Types.Comment[]) => {
+    setDatas((prev: Types.CommentProps[]) => {
       const newComment = generateNewComment({
         content,
         imagePng: currentUser.image.png,
         imageWebp: currentUser.image.webp,
         username: currentUser.username,
-      }) as Types.Comment;
+      }) as Types.CommentProps;
       if (type === "Add Reply") {
         newComment["replyingTo"] = replyingTo?.username;
         addReply(prev, id, newComment);
@@ -65,6 +65,7 @@ export const AddComment = ({
           } px-4 py-2 text-white rounded-md`}
           onClick={onSendHandler}
           disabled={content === ""}
+          aria-label="send comment"
         >
           SEND
         </button>

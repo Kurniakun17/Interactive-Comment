@@ -3,10 +3,9 @@ import * as Types from "../utils/interfaces";
 
 interface Scores {
   score: number;
-  setDatas: React.Dispatch<React.SetStateAction<Types.Comment[]>>;
 }
 
-export const Score = ({ score, setDatas }: Scores) => {
+export const Score = ({ score }: Scores) => {
   const [Score, setScore] = useState(score);
   const [upvote, setUpvote] = useState(false);
   const [downvote, setDownvote] = useState(false);
@@ -64,10 +63,11 @@ export const Score = ({ score, setDatas }: Scores) => {
   };
 
   return (
-    <div className="flex gap-3 items-center bg-lightGray px-2 py-1 rounded-md">
+    <div className="flex gap-3 items-center bg-lightGray px-2 py-1 rounded-md desktop:flex-col desktop:pb-3">
       <button
-        className="flex w-3 h-full items-center justify-center"
+        className="flex w-3 h-full items-center justify-center desktop:mt-2"
         onClick={upvoteHandler}
+        aria-label="upvote"
       >
         <svg
           className="text-[#C5C6EF] data-[clicked=true]:text-moderateBlue"
@@ -84,8 +84,9 @@ export const Score = ({ score, setDatas }: Scores) => {
       </button>
       <h3 className="text-moderateBlue font-bold">{Score}</h3>
       <button
-        className="flex w-3 h-full items-center justify-center"
+        className="flex w-3 h-full items-center justify-center dekstop:py-1"
         onClick={downvoteHandler}
+        aria-label="downvote"
       >
         <svg
           className="text-[#C5C6EF] data-[clicked=true]:text-moderateBlue"

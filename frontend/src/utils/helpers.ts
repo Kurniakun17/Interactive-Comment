@@ -1,9 +1,9 @@
-import { Comment } from "./interfaces";
+import { CommentProps } from "./interfaces";
 
 export function findCommentObj(
-  obj: Comment | Comment[],
+  obj: CommentProps | CommentProps[],
   id: number
-): Comment | null {
+): CommentProps | null {
   if (Array.isArray(obj)) {
     for (const item of obj) {
       const result = findCommentObj(item, id);
@@ -26,9 +26,9 @@ export function findCommentObj(
 }
 
 export function addReply(
-  comments: Comment[],
+  comments: CommentProps[],
   parentCommentId: number,
-  reply: Comment
+  reply: CommentProps
 ): void {
   const parentComment = findCommentObj(comments, parentCommentId);
 
@@ -41,7 +41,7 @@ export function addReply(
 }
 
 export function editComment(
-  comments: Comment[],
+  comments: CommentProps[],
   parentCommentId: number,
   reply: string
 ) {
@@ -52,7 +52,7 @@ export function editComment(
   }
 }
 
-export function deleteComment(comments: Comment[], id: number) {
+export function deleteComment(comments: CommentProps[], id: number) {
   for (let i = 0; i < comments.length; i++) {
     const comment = comments[i];
     if (comment.id === id) {

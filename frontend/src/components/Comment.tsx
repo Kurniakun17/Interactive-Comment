@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { Comment, CurrentUser } from "../utils/interfaces";
+import { CommentProps, CurrentUser } from "../utils/interfaces";
 import { TopSection } from "./TopSection";
 import { BottomSection } from "./BottomSection";
 import * as Types from "../utils/interfaces";
@@ -7,17 +7,18 @@ import { AddComment } from "./AddComment";
 import { deleteComment, editComment } from "../utils/helpers";
 import Modal from "react-modal";
 import { ModalDelete } from "./ModalDelete";
+import { Score } from "./Score";
 
-interface Comments extends Comment {
+interface Comments extends CommentProps {
   currentUser: CurrentUser;
   activeReplyIndex: number;
   isReplyActive: boolean;
-  setDatas: React.Dispatch<React.SetStateAction<Types.Comment[]>>;
+  setDatas: React.Dispatch<React.SetStateAction<Types.CommentProps[]>>;
   setActiveReplyIndex: React.Dispatch<React.SetStateAction<number>>;
   closeReply: () => void;
 }
 
-export const Comments = ({
+export const Comment = ({
   id,
   content,
   createdAt,
@@ -40,12 +41,12 @@ export const Comments = ({
     editInput.current = e.target.value;
   };
 
-  const onEditClickHandler = () => {
+  const onEditHandler = () => {
     setIsEditActive(!isEditActive);
   };
 
-  const onSendEditHandler = () => {
-    setDatas((prev: Types.Comment[]) => {
+  const onUpdateHandler = () => {
+    setDatas((prev: Types.CommentProps[]) => {
       editComment(prev, id, editInput.current);
       return [...prev];
     });
@@ -57,52 +58,70 @@ export const Comments = ({
   };
 
   const onModalDeleteHandler = () => {
-    setDatas((prev: Types.Comment[]) => {
+    setDatas((prev: Types.CommentProps[]) => {
       deleteComment(prev, id);
       return [...prev];
     });
+  };
+
+  const onReplyHandler = () => {
+    if (isReplyActive) {
+      return setActiveReplyIndex(-1);
+    }
+    setActiveReplyIndex(id);
   };
 
   Modal.setAppElement("#root");
 
   return (
     <div className="flex flex-col max-w-[600px] gap-2">
-      <div className="flex flex-col px-4 py-4 bg-white rounded gap-4">
-        <TopSection
-          currentUser={currentUser}
-          user={user}
-          createdAt={createdAt}
-        ></TopSection>
-        {isEditActive ? (
-          <textarea
-            className="border-2 rounded px-4 py-2 h-32 resize-none"
-            required={true}
-            defaultValue={content}
-            onChange={(e) => {
-              onInputChangeHandler(e);
-            }}
-          ></textarea>
-        ) : (
-          <p className="text-grayishBlue">
-            {replyingTo && (
-              <span className="text-moderateBlue font-bold after:content-['_']">
-                @{replyingTo}
-              </span>
-            )}
-            {content}
-          </p>
-        )}
-        <BottomSection
-          id={id}
-          isAuthor={user.username === currentUser.username}
-          isEditActive={isEditActive}
-          score={score}
-          setDatas={setDatas}
-          setActiveIndex={setActiveReplyIndex}
-          onEditClickHandler={onEditClickHandler}
-          onSendEditHandler={onSendEditHandler}
-          onDeleteHandler={onDeleteHandler}
-        ></BottomSection>
+      <div className="flex px-4 py-4 bg-white rounded-md gap-4">
+        <div className="hidden desktop:block">
+          <Score score={score}></Score>
+        </div>
+        <div className="flex flex-col gap-4 w-full">
+          <TopSection
+            currentUser={currentUser}
+            user={user}
+            createdAt={createdAt}
+            isAuthor={user.username === currentUser.username}
+            isEditActive={isEditActive}
+            onReplyHandler={onReplyHandler}
+            onDeleteHandler={onDeleteHandler}
+            onEditHandler={onEditHandler}
+            onUpdateHandler={onUpdateHandler}
+          ></TopSection>
+          {isEditActive ? (
+            <textarea
+              className="border-2 rounded px-4 py-2 h-32 resize-none"
+              required={true}
+              defaultValue={content}
+              onChange={(e) => {
+                onInputChangeHandler(e);
+              }}
+              aria-label="update comment input"
+            ></textarea>
+          ) : (
+            <p className="text-grayishBlue">
+              {replyingTo && (
+                <span className="text-moderateBlue font-bold after:content-['_']">
+                  @{replyingTo}
+                </span>
+              )}
+              {content}
+            </p>
+          )}
+          <BottomSection
+            isAuthor={user.username === currentUser.username}
+            isEditActive={isEditActive}
+            score={score}
+            
+            onEditHandler={onEditHandler}
+            onUpdateHandler={onUpdateHandler}
+            onDeleteHandler={onDeleteHandler}
+            onReplyHandler={onReplyHandler}
+          ></BottomSection>
+        </div>
       </div>
       {isReplyActive && (
         <AddComment
@@ -117,9 +136,9 @@ export const Comments = ({
       )}
       {replies?.length ? (
         <div className="flex flex-col gap-4 border-l-[3px] mt-2 pl-4 md:pl-8">
-          {replies.map((comment: Comment) => {
+          {replies.map((comment: CommentProps) => {
             return (
-              <Comments
+              <Comment
                 key={comment.id}
                 activeReplyIndex={activeReplyIndex}
                 isReplyActive={activeReplyIndex === comment.id}
@@ -128,7 +147,7 @@ export const Comments = ({
                 {...comment}
                 setDatas={setDatas}
                 closeReply={closeReply}
-              ></Comments>
+              ></Comment>
             );
           })}
         </div>

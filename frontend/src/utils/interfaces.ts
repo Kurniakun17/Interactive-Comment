@@ -1,4 +1,4 @@
-interface Comment {
+export interface CommentProps {
   id: number;
   content: string;
   createdAt: string;
@@ -10,11 +10,11 @@ interface Comment {
     };
     username: string;
   };
-  replies?: Comment[];
+  replies?: CommentProps[];
   replyingTo?: string;
 }
 
-interface CurrentUser {
+export interface CurrentUser {
   image: {
     png: string;
     webp: string;
@@ -22,9 +22,7 @@ interface CurrentUser {
   username: string;
 }
 
-interface Data {
+export interface Data {
   currentUser: CurrentUser;
-  comments: Comment[];
+  comments: CommentProps[];
 }
-
-export type { Comment, CurrentUser, Data };
