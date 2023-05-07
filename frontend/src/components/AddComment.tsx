@@ -48,21 +48,28 @@ export const AddComment = ({
   };
 
   return (
-    <div className="flex flex-col px-4 py-4 bg-white rounded-md gap-4">
+    <div className="flex flex-col p-4 desktop:p-6 bg-white rounded-md gap-4 desktop:flex-row justify-between">
+      <img className="hidden w-8 h-8 desktop:block" src={currentUser.image.webp} alt="" />
       <textarea
         onChange={(e) => inputHandler(e)}
         value={content}
-        className="border-2 rounded px-4 py-2 h-24 resize-none"
+        className="border-2 rounded px-4 py-2 h-24 resize-none desktop:w-full"
         placeholder="Add a comment...."
         required={true}
         autoFocus={isFocus}
       />
-      <div className="flex justify-between items-center">
+      <button
+        className={`hidden desktop:block bg-moderateBlue px-4 py-2 text-white rounded-md desktop:h-fit`}
+        onClick={onSendHandler}
+        disabled={content === ""}
+        aria-label="send comment"
+      >
+        SEND
+      </button>
+      <div className="flex justify-between items-center desktop:hidden">
         <img className="w-8 h-8" src={currentUser.image.webp} alt="" />
         <button
-          className={`${
-            content === "" ? "bg-slate-400" : "bg-moderateBlue"
-          } px-4 py-2 text-white rounded-md`}
+          className={`bg-moderateBlue px-4 py-2 text-white rounded-md`}
           onClick={onSendHandler}
           disabled={content === ""}
           aria-label="send comment"

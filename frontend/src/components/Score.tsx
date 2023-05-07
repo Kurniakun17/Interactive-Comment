@@ -63,9 +63,9 @@ export const Score = ({ score }: Scores) => {
   };
 
   return (
-    <div className="flex gap-3 items-center bg-lightGray px-2 py-1 rounded-md desktop:flex-col desktop:pb-3">
+    <div className="flex gap-3 items-center bg-lightGray px-3 desktop:px-2.5 py-1 desktop:py-3 rounded-md desktop:flex-col">
       <button
-        className="flex w-3 h-full items-center justify-center desktop:mt-2"
+        className="flex w-3 h-full items-center justify-center "
         onClick={upvoteHandler}
         aria-label="upvote"
       >

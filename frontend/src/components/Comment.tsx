@@ -74,8 +74,8 @@ export const Comment = ({
   Modal.setAppElement("#root");
 
   return (
-    <div className="flex flex-col max-w-[600px] gap-2">
-      <div className="flex px-4 py-4 bg-white rounded-md gap-4">
+    <div className="flex flex-col max-w-[600px] desktop:max-w-[700px] gap-2">
+      <div className="flex p-6 bg-white rounded-md gap-6">
         <div className="hidden desktop:block">
           <Score score={score}></Score>
         </div>
@@ -115,7 +115,6 @@ export const Comment = ({
             isAuthor={user.username === currentUser.username}
             isEditActive={isEditActive}
             score={score}
-            
             onEditHandler={onEditHandler}
             onUpdateHandler={onUpdateHandler}
             onDeleteHandler={onDeleteHandler}
@@ -135,7 +134,7 @@ export const Comment = ({
         ></AddComment>
       )}
       {replies?.length ? (
-        <div className="flex flex-col gap-4 border-l-[3px] mt-2 pl-4 md:pl-8">
+        <div className="flex flex-col gap-4 border-l-[3px] mt-2 pl-4 md:pl-8 desktop:ml-9">
           {replies.map((comment: CommentProps) => {
             return (
               <Comment
