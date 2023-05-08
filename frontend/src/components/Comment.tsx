@@ -75,7 +75,7 @@ export const Comment = ({
 
   return (
     <div className="flex flex-col max-w-[600px] desktop:max-w-[700px] gap-2">
-      <div className="flex p-6 bg-white rounded-md gap-6">
+      <div className="flex p-6 bg-white rounded-md gap-6 shadow-sm">
         <div className="hidden desktop:block">
           <Score score={score}></Score>
         </div>

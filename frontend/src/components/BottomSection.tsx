@@ -1,8 +1,5 @@
 import React from "react";
 import { Score } from "./Score";
-import * as Types from "../utils/interfaces";
-import { CommentAuthorButtons } from "./CommentAuthorButtons";
-import { ReplyButton } from "./ReplyButton";
 import { CommentButtonGroup } from "./CommentButtonGroup";
 
 interface BottomSection {

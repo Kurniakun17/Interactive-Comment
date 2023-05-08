@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import data from "../utils/data.json";
 import * as Types from "../utils/interfaces";
 import { Comment } from "./Comment";
