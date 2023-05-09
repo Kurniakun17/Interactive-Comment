@@ -4,6 +4,7 @@ import * as Types from "../utils/interfaces";
 import { Comment } from "./Comment";
 import { AddComment } from "./AddComment";
 import { fetchData } from "../utils/helpers";
+import { Loading } from "./Loading";
 
 export const CommentsList = () => {
   const [currentUser, setCurrentUser] = useState<Types.CurrentUser>(
@@ -11,12 +12,14 @@ export const CommentsList = () => {
   );
   const [datas, setDatas] = useState<Types.CommentProps[]>([]);
   const [activeReplyIndex, setActiveReplyIndex] = useState(-1);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchDataAsync = async () => {
       const res = await fetchData();
       console.log(res);
       setDatas(res);
+      setIsLoading(false);
     };
     fetchDataAsync();
   }, []);
@@ -24,6 +27,10 @@ export const CommentsList = () => {
   const closeReply = () => {
     setActiveReplyIndex(-1);
   };
+
+  if (isLoading) {
+    return <Loading></Loading>;
+  }
 
   return (
     <div className="flex flex-col gap-4 w-[600px] desktop:w-[700px]">
@@ -44,7 +51,7 @@ export const CommentsList = () => {
       <AddComment
         setDatas={setDatas}
         currentUser={currentUser}
-        id={1}
+        authorId={currentUser._id}
         closeReply={closeReply}
         isFocus={false}
         type="Add Comment"

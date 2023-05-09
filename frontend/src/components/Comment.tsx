@@ -83,7 +83,7 @@ export const Comment = ({
         <div className="flex flex-col gap-4 w-full">
           <TopSection
             currentUser={currentUser}
-            user={author}
+            author={author}
             createdAt={createdAt}
             isAuthor={author.username === currentUser.username}
             isEditActive={isEditActive}
@@ -128,7 +128,7 @@ export const Comment = ({
           closeReply={closeReply}
           setDatas={setDatas}
           currentUser={currentUser}
-          id={id}
+          authorId={author._id.toString()}
           replyingTo={{ id, username: author.username }}
           type="Add Reply"
           isFocus={true}
@@ -139,7 +139,7 @@ export const Comment = ({
           {replies.map((comment: CommentProps) => {
             return (
               <Comment
-                key={comment.id}
+                key={`${comment.id} reply`}
                 activeReplyIndex={activeReplyIndex}
                 isReplyActive={activeReplyIndex === comment.id}
                 setActiveReplyIndex={setActiveReplyIndex}

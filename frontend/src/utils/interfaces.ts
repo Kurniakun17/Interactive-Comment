@@ -9,6 +9,7 @@ export interface CommentProps {
       webp: string;
     };
     username: string;
+    _id: number;
   };
   replies?: CommentProps[];
   replyingTo?: string;
@@ -20,6 +21,7 @@ export interface CurrentUser {
     webp: string;
   };
   username: string;
+  _id: string
 }
 
 export interface Data {

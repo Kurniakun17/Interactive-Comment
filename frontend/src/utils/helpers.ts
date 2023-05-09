@@ -80,31 +80,17 @@ export function deleteComment(comments: CommentProps[], id: number) {
 
 type generateNewCommentProps = {
   content: string;
-  imagePng: string;
-  imageWebp: string;
-  username: string;
+  authorId: string;
 };
 
 export function generateNewComment({
   content,
-  imagePng,
-  imageWebp,
-  username,
+  authorId,
 }: generateNewCommentProps) {
-  const date = new Date();
-  console.log(date);
-  return {
-    id: Math.random() * 1000,
+  const createdAt = Date.now().toString();
+  axios.post("http://localhost:3000/comment/addComment", {
     content,
-    createdAt: "now",
-    score: 0,
-    user: {
-      image: {
-        png: imagePng,
-        webp: imageWebp,
-      },
-      username,
-    },
-    replies: [],
-  };
+    createdAt,
+    author: authorId,
+  }).then(response => console.log(response)).catch(err=> console.log(err))
 }

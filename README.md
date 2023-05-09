@@ -1,6 +1,6 @@
 # Frontend Mentor - Interactive comments section solution
 
-This is a solution to the [Interactive comments section challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/interactive-comments-section-iG1RugEG9). Frontend Mentor challenges help you improve your coding skills by building realistic projects. 
+This is a solution to the [Interactive comments section challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/interactive-comments-section-iG1RugEG9).
 
 ## Table of contents
 
@@ -33,8 +33,8 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: (interactive-comment-section-kurni.vercel.app)
-- Live Site URL:  (interactive-comment-section-kurni.vercel.app)
+- Solution URL: ![](interactive-comment-section-kurni.vercel.app)
+- Live Site URL:  ![](interactive-comment-section-kurni.vercel.app)
 
 ## My process
 
@@ -67,7 +67,6 @@ export function deleteComment(comments: Comment[], id: number) {
 ### Continued development
 In the future, i would like to improve this project by making a backend for this project using MongoDB, ExpressJS, and NodeJS so it can store the comment that has been published. 
 
-**Note: Delete this note and replace the list above with resources that helped you during the challenge. These could come in handy for anyone viewing your solution or for yourself when you look back on this project in the future.**
 
 ## Author
 - Frontend Mentor - [@kurniakun17](https://www.frontendmentor.io/profile/kurniakun17)

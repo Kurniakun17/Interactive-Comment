@@ -4,7 +4,7 @@ import * as Types from "../utils/interfaces";
 import { addReply, generateNewComment } from "../utils/helpers";
 
 interface AddComment {
-  id: number;
+  authorId: string;
   isFocus: boolean;
   type: string;
   currentUser: CurrentUser;
@@ -14,7 +14,7 @@ interface AddComment {
 }
 
 export const AddComment = ({
-  id,
+  authorId,
   type,
   currentUser,
   isFocus,
@@ -30,19 +30,9 @@ export const AddComment = ({
 
   const onSendHandler = () => {
     setContent("");
-    setDatas((prev: Types.CommentProps[]) => {
-      const newComment = generateNewComment({
-        content,
-        imagePng: currentUser.image.png,
-        imageWebp: currentUser.image.webp,
-        username: currentUser.username,
-      }) as Types.CommentProps;
-      if (type === "Add Reply") {
-        newComment["replyingTo"] = replyingTo?.username;
-        addReply(prev, id, newComment);
-        return prev;
-      }
-      return [...prev, newComment];
+    generateNewComment({
+      content,
+      authorId,
     });
     closeReply();
   };
