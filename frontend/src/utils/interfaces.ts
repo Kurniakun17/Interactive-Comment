@@ -3,7 +3,7 @@ export interface CommentProps {
   content: string;
   createdAt: string;
   score: number;
-  user: {
+  author: {
     image: {
       png: string;
       webp: string;

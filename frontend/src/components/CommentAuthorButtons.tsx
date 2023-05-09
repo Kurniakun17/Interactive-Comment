@@ -17,7 +17,7 @@ export const CommentAuthorButtons = ({
     <>
       {isEditActive ? (
         <button
-          className={`bg-moderateBlue px-4 py-2 text-white rounded-md`}
+          className={`bg-moderateBlue px-4 py-2 text-white rounded-md hover:cursor-pointer hover:bg-lightGrayish`}
           onClick={onUpdateHandler}
           aria-label="send update comment"
         >

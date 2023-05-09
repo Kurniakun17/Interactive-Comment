@@ -1,4 +1,14 @@
 import { CommentProps } from "./interfaces";
+import axios from 'axios';
+
+export async function fetchData(){
+  try{
+    const res = await axios.get('http://localhost:3000/comment');
+    return res.data.data as CommentProps[];
+  }catch(error){
+    return [];
+  }
+}
 
 export function findCommentObj(
   obj: CommentProps | CommentProps[],

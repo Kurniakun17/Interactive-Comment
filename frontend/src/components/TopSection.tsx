@@ -1,6 +1,7 @@
 import React from "react";
 import { CurrentUser } from "../utils/interfaces";
 import { CommentButtonGroup } from "./CommentButtonGroup";
+import ReactTimeAgo from "react-time-ago";
 
 type TopSection = {
   user: {
@@ -14,7 +15,6 @@ type TopSection = {
   currentUser: CurrentUser;
   isAuthor: boolean;
   isEditActive: boolean;
-  isReplyActive?: boolean;
   onEditHandler: () => void;
   onUpdateHandler: () => void;
   onDeleteHandler: () => void;
@@ -27,7 +27,6 @@ export const TopSection = ({
   currentUser,
   isAuthor,
   isEditActive,
-  isReplyActive,
   onEditHandler,
   onUpdateHandler,
   onDeleteHandler,
@@ -43,7 +42,9 @@ export const TopSection = ({
             <p>you</p>
           </div>
         )}
-        <p className="text-grayishBlue">{createdAt}</p>
+        <p className="text-grayishBlue">
+          <ReactTimeAgo date={1683640981097} locale="en-US" />
+        </p>
       </div>
       <div className="hidden desktop:flex">
         <CommentButtonGroup

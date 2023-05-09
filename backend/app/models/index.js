@@ -1,8 +1,8 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 
 module.exports = {
-  url: 'mongodb://127.0.0.1:27017/interactiveComment',
+  url: "mongodb+srv://kurniakun17:kurnia020904@ics.yruythy.mongodb.net/?retryWrites=true&w=majority",
   mongoose: mongoose,
-  comment: require('./comment.model')(mongoose),
-  user: require('./user.model')(mongoose)
-}
+  comment: require("./comment.model")(mongoose),
+  user: require("./user.model")(mongoose),
+};

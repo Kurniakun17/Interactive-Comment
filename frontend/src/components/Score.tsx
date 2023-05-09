@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import * as Types from "../utils/interfaces";
 
 interface Scores {
   score: number;
@@ -63,9 +62,9 @@ export const Score = ({ score }: Scores) => {
   };
 
   return (
-    <div className="flex gap-3 items-center bg-lightGray px-3 desktop:px-2.5 py-1 desktop:py-3 rounded-md desktop:flex-col">
+    <div className="flex items-center bg-veryLightGray rounded-lg desktop:flex-col">
       <button
-        className="flex w-3 h-full items-center justify-center "
+        className="flex h-full items-center justify-center p-4 desktop:px-[14px] desktop:py-[15px]"
         onClick={upvoteHandler}
         aria-label="upvote"
       >
@@ -82,9 +81,9 @@ export const Score = ({ score }: Scores) => {
           />
         </svg>
       </button>
-      <h3 className="text-moderateBlue font-bold">{Score}</h3>
+      <h3 className="text-moderateBlue font-bold desktop:px-[14px]">{Score}</h3>
       <button
-        className="flex w-3 h-full items-center justify-center dekstop:py-1"
+        className="flex h-full items-center justify-center p-4 desktop:px-[14px] desktop:py-[15px]"
         onClick={downvoteHandler}
         aria-label="downvote"
       >

@@ -23,7 +23,7 @@ export const Comment = ({
   content,
   createdAt,
   score,
-  user,
+  author,
   replies,
   currentUser,
   replyingTo,
@@ -58,6 +58,7 @@ export const Comment = ({
   };
 
   const onModalDeleteHandler = () => {
+    setIsModalActive(false);
     setDatas((prev: Types.CommentProps[]) => {
       deleteComment(prev, id);
       return [...prev];
@@ -74,17 +75,17 @@ export const Comment = ({
   Modal.setAppElement("#root");
 
   return (
-    <div className="flex flex-col max-w-[600px] desktop:max-w-[700px] gap-2">
-      <div className="flex p-6 bg-white rounded-md gap-6 shadow-sm">
+    <div className="flex flex-col w-full gap-2">
+      <div className="flex p-4 desktop:p-6 bg-white rounded-md gap-6 shadow-sm">
         <div className="hidden desktop:block">
           <Score score={score}></Score>
         </div>
         <div className="flex flex-col gap-4 w-full">
           <TopSection
             currentUser={currentUser}
-            user={user}
+            user={author}
             createdAt={createdAt}
-            isAuthor={user.username === currentUser.username}
+            isAuthor={author.username === currentUser.username}
             isEditActive={isEditActive}
             onReplyHandler={onReplyHandler}
             onDeleteHandler={onDeleteHandler}
@@ -112,7 +113,7 @@ export const Comment = ({
             </p>
           )}
           <BottomSection
-            isAuthor={user.username === currentUser.username}
+            isAuthor={author.username === currentUser.username}
             isEditActive={isEditActive}
             score={score}
             onEditHandler={onEditHandler}
@@ -128,7 +129,7 @@ export const Comment = ({
           setDatas={setDatas}
           currentUser={currentUser}
           id={id}
-          replyingTo={{ id, username: user.username }}
+          replyingTo={{ id, username: author.username }}
           type="Add Reply"
           isFocus={true}
         ></AddComment>

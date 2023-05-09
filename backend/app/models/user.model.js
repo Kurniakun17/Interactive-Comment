@@ -1,26 +1,30 @@
-module.exports = mongoose => {
+module.exports = (mongoose) => {
   const userSchema = new mongoose.Schema({
     username: {
       type: String,
-      required: true
+      required: true,
     },
     password: {
       type: String,
-      required: true
-    },
-    email: {
-      type: String,
-      required: true
+      required: true,
     },
     image: {
-      png: String,
-      webp: String,
+      png: {
+        type: String,
+        default: "./images/avatars/image-juliusomo.png",
+      },
+      webp: {
+        type: String,
+        default: "./images/avatars/image-juliusomo.webp",
+      },
     },
-    comments: [{
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Comment'
-    }]
-  })
+    comments: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Comment",
+      },
+    ],
+  });
 
-  return mongoose.model('User', userSchema)
-}
+  return mongoose.model("User", userSchema);
+};
