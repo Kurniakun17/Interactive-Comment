@@ -91,6 +91,7 @@ export const Comment = ({
       <div className="flex p-4 desktop:p-6 bg-white rounded-md gap-6 shadow-sm">
         <div className="hidden desktop:block">
           <Score
+            _id={_id.toString()}
             score={score}
             upvotedStatus={upvotedBy.includes(user._id)}
             downvotedStatus={downvotedBy.includes(user._id)}
@@ -122,6 +123,7 @@ export const Comment = ({
             <p className="text-grayishBlue">{content}</p>
           )}
           <BottomSection
+            _id={_id.toString()}
             isAuthor={author.username === user.username}
             isEditActive={isEditActive}
             score={score}

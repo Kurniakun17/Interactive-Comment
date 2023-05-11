@@ -37,13 +37,11 @@ export const CommentsList = () => {
     return <Loading></Loading>;
   }
 
-  console.log(datas);
   return (
     <div className="flex flex-col gap-4 w-[600px] desktop:w-[700px] transition-transform">
       {datas
         .filter((comment: CommentProps) => !comment.parentId)
         .map((comment: CommentProps, index: number) => {
-          console.log(comment);
           return (
             <Comment
               key={index}

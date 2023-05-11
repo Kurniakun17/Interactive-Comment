@@ -1,15 +1,25 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { downvoteScore, upvoteScore } from "../utils/helpers";
+import { DataContext } from "../utils/Contexts";
 
 interface Scores {
+  _id: string;
   score: number;
   upvotedStatus: boolean;
   downvotedStatus: boolean;
 }
 
-export const Score = ({ score, upvotedStatus, downvotedStatus }: Scores) => {
+export const Score = ({
+  _id,
+  score,
+  upvotedStatus,
+  downvotedStatus,
+}: Scores) => {
   const [Score, setScore] = useState(score);
   const [upvote, setUpvote] = useState(upvotedStatus);
   const [downvote, setDownvote] = useState(downvotedStatus);
+  const user = useContext(DataContext);
+  const voteObj = { commentId: _id, userId: user._id };
 
   const setUpVoteStatus = (status: boolean) => {
     setUpvote(status);
@@ -43,6 +53,7 @@ export const Score = ({ score, upvotedStatus, downvotedStatus }: Scores) => {
       }
       setUpVoteStatus(false);
     }
+    upvoteScore(voteObj);
   };
 
   const downvoteHandler = () => {
@@ -61,6 +72,7 @@ export const Score = ({ score, upvotedStatus, downvotedStatus }: Scores) => {
       }
       setDownVoteStatus(false);
     }
+    downvoteScore(voteObj);
   };
 
   return (

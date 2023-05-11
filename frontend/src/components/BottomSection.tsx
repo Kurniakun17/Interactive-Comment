@@ -3,6 +3,7 @@ import { Score } from "./Score";
 import { CommentButtonGroup } from "./CommentButtonGroup";
 
 interface BottomSection {
+  _id: string;
   score: number;
   isAuthor: boolean;
   isEditActive: boolean;
@@ -15,6 +16,7 @@ interface BottomSection {
 }
 
 export const BottomSection = ({
+  _id,
   score,
   isAuthor,
   isEditActive,
@@ -28,9 +30,10 @@ export const BottomSection = ({
   return (
     <div className="flex justify-between desktop:hidden">
       <Score
+        _id={_id}
         score={score}
         upvotedStatus={upvotedStatus}
-        downvotedStatus={upvotedStatus}
+        downvotedStatus={downvotedStatus}
       ></Score>
       <CommentButtonGroup
         isAuthor={isAuthor}

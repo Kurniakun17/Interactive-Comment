@@ -1,8 +1,6 @@
 import { CommentProps, newCommentObj } from "./interfaces";
 import axios from 'axios';
 
-
-
 export const generateNewComment = async (
   newCommentObj
 : newCommentObj) => {
@@ -29,12 +27,25 @@ export const editComment =  (
   return comments;
 }
 
-export function deleteComment(comments: CommentProps[], id: number): CommentProps[]{
+export const deleteComment = (comments: CommentProps[], id: number): CommentProps[] => {
   try {
     axios.delete('http://localhost:3000/comment/' + id);
     return comments.filter((comment: CommentProps) => comment._id !== id); 
   } catch (error: any) {
     console.log(error.message);
-    return []
+    return [];
   }
+}
+
+type voteObjProps = {
+  commentId: string,
+  userId: string,
+}
+
+export const upvoteScore = (upvoteObj: voteObjProps) => {
+  axios.put("http://localhost:3000/comment/upvote", upvoteObj)
+}
+
+export const downvoteScore = (downvoteObj: voteObjProps) => {
+  axios.put("http://localhost:3000/comment/downvote", downvoteObj)
 }

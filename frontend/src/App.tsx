@@ -1,7 +1,7 @@
 import "./index.css";
 import data from "./utils/data.json";
 import Homepage from "./pages/Homepage";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { useState } from "react";
 import { DataContext } from "./utils/Contexts";
 import { userProps } from "./utils/interfaces";
@@ -13,6 +13,7 @@ function App() {
     <DataContext.Provider value={user}>
       <Routes>
         <Route element={<Homepage />} path="/home"></Route>
+        <Route element={<Navigate to={'/home'}></Navigate>} path="*"></Route>
       </Routes>
     </DataContext.Provider>
   );

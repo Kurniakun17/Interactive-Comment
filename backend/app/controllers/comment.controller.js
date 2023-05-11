@@ -100,6 +100,10 @@ exports.upvoteScore = async (req, res) => {
     }
     comment.score++;
     comment.upvotedBy.push(userId);
+    if (comment.downvotedBy.includes(userId)) {
+      comment.score--;
+      comment.downvotedBy.pull(userId);
+    }
     await comment.save();
     res.send({ message: "score has been increased" });
   } catch (error) {
@@ -110,7 +114,7 @@ exports.upvoteScore = async (req, res) => {
 exports.downvoteScore = async (req, res) => {
   try {
     const { commentId, userId } = req.body;
-    const comment = commentModel.findById(commentId);
+    const comment = await commentModel.findById(commentId);
     if (!comment) {
       res.status(404).send({ message: "comment not found!" });
     }
@@ -124,6 +128,10 @@ exports.downvoteScore = async (req, res) => {
     }
     comment.score--;
     comment.downvotedBy.push(userId);
+    if (comment.upvotedBy.includes(userId)) {
+      comment.score--;
+      comment.upvotedBy.pull(userId);
+    }
     await comment.save();
     res.send({ message: "score has been decreased" });
   } catch (error) {
