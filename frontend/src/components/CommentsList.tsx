@@ -5,38 +5,33 @@ import { AddComment } from "./AddComment";
 import { fetchData } from "../utils/fetch";
 import { DataContext } from "../utils/Contexts";
 import { Loading } from "./Loading";
+interface CommentsListProps {
+  datas: CommentProps[];
+  activeReplyIndex: number;
+  closeReply: () => void;
+  getReplies: (parentId: number) => CommentProps[];
+  setActiveReplyIndex: React.Dispatch<React.SetStateAction<number>>;
+  setDatas: React.Dispatch<React.SetStateAction<CommentProps[]>>;
+}
 
-export const CommentsList = () => {
-  const [datas, setDatas] = useState<CommentProps[]>([]);
-  const [activeReplyIndex, setActiveReplyIndex] = useState(-1);
-  const { user, loading, setLoading } = useContext(DataContext);
-
+export const CommentsList = ({
+  datas,
+  activeReplyIndex,
+  closeReply,
+  getReplies,
+  setActiveReplyIndex,
+  setDatas,
+}: CommentsListProps) => {
+  const { user, loading } = useContext(DataContext);
   const commentObj: newCommentObj = {
     author: user._id,
     createdAt: "",
     content: "",
   };
 
-  useEffect(() => {
-    fetchData(setDatas, setLoading);
-  }, []);
-
-  const getReplies = (parentId: number): CommentProps[] => {
-    const replies = datas.filter(
-      (comment) => comment.parentId === parentId.toString()
-    );
-    return replies;
-  };
-
-  const closeReply = () => {
-    setActiveReplyIndex(-1);
-  };
-
   if (loading) {
     return <Loading></Loading>;
   }
-
-  
 
   return (
     <div className="flex flex-col gap-4 w-[600px] desktop:w-[700px] transition-transform">
@@ -45,7 +40,7 @@ export const CommentsList = () => {
         .map((comment: CommentProps, index: number) => {
           return (
             <Comment
-              key={index}
+              key={comment._id}
               activeReplyIndex={activeReplyIndex}
               setActiveReplyIndex={setActiveReplyIndex}
               isReplyActive={activeReplyIndex === comment._id}

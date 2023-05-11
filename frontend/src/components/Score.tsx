@@ -47,6 +47,7 @@ export const Score = ({
       }
     } else {
       decreaseScore();
+      setUpVoteStatus(false);
     }
     upvoteScore(voteObj);
   };
@@ -61,6 +62,7 @@ export const Score = ({
       }
     } else {
       increaseScore();
+      setDownVoteStatus(false);
     }
     downvoteScore(voteObj);
   };

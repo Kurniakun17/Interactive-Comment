@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { TopSection } from "./TopSection";
 import { BottomSection } from "./BottomSection";
 import { CommentProps, userProps, newCommentObj } from "../utils/interfaces";
@@ -38,7 +38,7 @@ export const Comment = ({
   const [isEditActive, setIsEditActive] = useState(false);
   const [isModalActive, setIsModalActive] = useState(false);
   const editInput = useRef(content);
-  const childrenComment: CommentProps[] = getReplies(_id);
+  let childrenComment: CommentProps[] = getReplies(_id);
   const commentObj: newCommentObj = {
     author: user._id,
     content: "",
@@ -68,11 +68,15 @@ export const Comment = ({
     setIsModalActive(!isModalActive);
   };
 
-  const onModalDeleteHandler = () => {
+  const onModalDeleteHandler = (id: string) => {
     setIsModalActive(false);
-    setDatas((prev: CommentProps[]) => {
-      return [...deleteComment(prev, _id)];
-    });
+    const element = document.getElementById(id);
+    element?.classList.add("animate-deleted");
+    setTimeout(() => {
+      setDatas((prev: CommentProps[]) => {
+        return [...deleteComment(prev, _id)];
+      });
+    }, 550);
   };
 
   const onReplyHandler = () => {
@@ -86,7 +90,10 @@ export const Comment = ({
 
   return (
     <div className="flex flex-col w-full gap-2">
-      <div className="flex p-4 desktop:p-6 bg-white rounded-md gap-6 shadow-sm">
+      <div
+        className="flex p-4 desktop:p-6 bg-white rounded-xl gap-6 shadow-sm"
+        id={_id.toString()}
+      >
         <div className="hidden desktop:block">
           <Score
             _id={_id.toString()}
@@ -109,7 +116,7 @@ export const Comment = ({
           ></TopSection>
           {isEditActive ? (
             <textarea
-              className="border-2 rounded px-4 py-2 h-32 resize-none"
+              className="border-2 rounded px-4 py-2 h-24 resize-none"
               required={true}
               defaultValue={content}
               onChange={(e) => {
@@ -150,7 +157,7 @@ export const Comment = ({
           {childrenComment.map((comment: CommentProps) => {
             return (
               <Comment
-                key={`${comment._id} reply`}
+                key={comment._id}
                 activeReplyIndex={activeReplyIndex}
                 isReplyActive={activeReplyIndex === comment._id}
                 setActiveReplyIndex={setActiveReplyIndex}
@@ -226,7 +233,9 @@ export const Comment = ({
               </button>
               <button
                 className="text-white text-md bg-softRed pt-1.5 pb-2.5 px-4 rounded-lg w-full"
-                onClick={onModalDeleteHandler}
+                onClick={() => {
+                  onModalDeleteHandler(_id.toString());
+                }}
               >
                 YES, DELETE
               </button>

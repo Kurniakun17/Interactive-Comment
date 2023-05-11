@@ -19,7 +19,7 @@ exports.register = async (req, res) => {
 
 exports.getUser = async (req, res) => {
   user
-    .findById(req.body.id)
+    .find({})
     .then((data) => res.send({ data }))
     .catch((err) => res.status(501).send({ message: err }));
 };
