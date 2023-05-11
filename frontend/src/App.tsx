@@ -1,11 +1,13 @@
 import "./index.css";
 import { CommentsList } from "./components/CommentsList";
+import Homepage from "./pages/Homepage";
+import { Routes, Route } from "react-router-dom";
 
 function App() {
   return (
-    <div className="bg-veryLightGray font-rubik flex justify-center items-center min-h-screen py-8 px-4">
-      <CommentsList></CommentsList>
-    </div>
+      <Routes>
+        <Route element={<Homepage />} path="/home"></Route>
+      </Routes>
   );
 }
 
