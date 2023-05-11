@@ -101,7 +101,7 @@ exports.upvoteScore = async (req, res) => {
     comment.score++;
     comment.upvotedBy.push(userId);
     if (comment.downvotedBy.includes(userId)) {
-      comment.score--;
+      comment.score++;
       comment.downvotedBy.pull(userId);
     }
     await comment.save();

@@ -15,7 +15,6 @@ interface Comments extends CommentProps {
   isReplyActive: boolean;
   setDatas: React.Dispatch<React.SetStateAction<CommentProps[]>>;
   setActiveReplyIndex: React.Dispatch<React.SetStateAction<number>>;
-  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
   closeReply: () => void;
   getReplies: (parentId: number) => CommentProps[];
 }
@@ -34,7 +33,6 @@ export const Comment = ({
   getReplies,
   setDatas,
   setActiveReplyIndex,
-  setIsLoading,
   closeReply,
 }: Comments) => {
   const [isEditActive, setIsEditActive] = useState(false);
@@ -144,7 +142,6 @@ export const Comment = ({
           user={user}
           replyingTo={{ _id, username: author.username }}
           isFocus={true}
-          setIsLoading={setIsLoading}
           commentObj={commentObj}
         ></AddComment>
       )}
@@ -162,7 +159,6 @@ export const Comment = ({
                 setDatas={setDatas}
                 closeReply={closeReply}
                 getReplies={getReplies}
-                setIsLoading={setIsLoading}
               ></Comment>
             );
           })}

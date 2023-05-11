@@ -18,7 +18,7 @@ export const Score = ({
   const [Score, setScore] = useState(score);
   const [upvote, setUpvote] = useState(upvotedStatus);
   const [downvote, setDownvote] = useState(downvotedStatus);
-  const user = useContext(DataContext);
+  const { user } = useContext(DataContext);
   const voteObj = { commentId: _id, userId: user._id };
 
   const setUpVoteStatus = (status: boolean) => {
@@ -42,16 +42,11 @@ export const Score = ({
       increaseScore();
       setUpVoteStatus(true);
       if (downvote) {
-        setDownVoteStatus(false);
         increaseScore();
+        setDownVoteStatus(false);
       }
     } else {
       decreaseScore();
-      if (downvote) {
-        setDownVoteStatus(false);
-        increaseScore();
-      }
-      setUpVoteStatus(false);
     }
     upvoteScore(voteObj);
   };
@@ -66,11 +61,6 @@ export const Score = ({
       }
     } else {
       increaseScore();
-      if (upvote) {
-        setUpVoteStatus(false);
-        decreaseScore();
-      }
-      setDownVoteStatus(false);
     }
     downvoteScore(voteObj);
   };

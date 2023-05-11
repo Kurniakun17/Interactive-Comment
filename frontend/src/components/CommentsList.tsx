@@ -3,14 +3,13 @@ import { CommentProps, newCommentObj } from "../utils/interfaces";
 import { Comment } from "./Comment";
 import { AddComment } from "./AddComment";
 import { fetchData } from "../utils/fetch";
-import { Loading } from "./Loading";
 import { DataContext } from "../utils/Contexts";
+import { Loading } from "./Loading";
 
 export const CommentsList = () => {
   const [datas, setDatas] = useState<CommentProps[]>([]);
   const [activeReplyIndex, setActiveReplyIndex] = useState(-1);
-  const [isLoading, setIsLoading] = useState(true);
-  const user = useContext(DataContext);
+  const { user, loading, setLoading } = useContext(DataContext);
 
   const commentObj: newCommentObj = {
     author: user._id,
@@ -19,7 +18,7 @@ export const CommentsList = () => {
   };
 
   useEffect(() => {
-    fetchData(setDatas, setIsLoading);
+    fetchData(setDatas, setLoading);
   }, []);
 
   const getReplies = (parentId: number): CommentProps[] => {
@@ -33,9 +32,11 @@ export const CommentsList = () => {
     setActiveReplyIndex(-1);
   };
 
-  if (isLoading) {
+  if (loading) {
     return <Loading></Loading>;
   }
+
+  
 
   return (
     <div className="flex flex-col gap-4 w-[600px] desktop:w-[700px] transition-transform">
@@ -53,7 +54,6 @@ export const CommentsList = () => {
               user={user}
               setDatas={setDatas}
               closeReply={closeReply}
-              setIsLoading={setIsLoading}
             ></Comment>
           );
         })}
@@ -63,7 +63,6 @@ export const CommentsList = () => {
         user={user}
         closeReply={closeReply}
         isFocus={false}
-        setIsLoading={setIsLoading}
         commentObj={commentObj}
       ></AddComment>
     </div>

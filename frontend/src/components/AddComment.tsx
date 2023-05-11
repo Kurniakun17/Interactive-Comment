@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { userProps, newCommentObj } from "../utils/interfaces";
 import { CommentProps } from "../utils/interfaces";
 import { generateNewComment } from "../utils/helpers";
+import { DataContext } from "../utils/Contexts";
 
 interface AddComment {
   commentObj: newCommentObj;
@@ -11,7 +12,6 @@ interface AddComment {
   replyingTo?: { _id: number; username: string };
   setDatas: React.Dispatch<React.SetStateAction<CommentProps[]>>;
   closeReply: () => void;
-  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const AddComment = ({
@@ -21,17 +21,16 @@ export const AddComment = ({
   isFocus,
   setDatas,
   closeReply,
-  setIsLoading,
 }: AddComment) => {
   const [content, setContent] = useState("");
   const [isModalActive, setIsModalActive] = useState(isReplyActive);
-
+  const {setLoading} = useContext(DataContext);
   const inputHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value);
   };
 
   const onSendHandler = async () => {
-    setIsLoading(true);
+    setLoading(true);
     const newcommentObj = {
       ...commentObj,
       content,
@@ -41,7 +40,7 @@ export const AddComment = ({
     setDatas((prev: CommentProps[]) => {
       return [...prev, res.data];
     });
-    setIsLoading(false);
+    setLoading(false);
     closeReply();
   };
 
