@@ -1,18 +1,19 @@
-import React, { useEffect, useState } from "react";
-import data from "../utils/data.json";
-import { CommentProps, CurrentUser, newCommentObj } from "../utils/interfaces";
+import React, { useContext, useEffect, useState } from "react";
+import { CommentProps, newCommentObj } from "../utils/interfaces";
 import { Comment } from "./Comment";
 import { AddComment } from "./AddComment";
 import { fetchData } from "../utils/fetch";
 import { Loading } from "./Loading";
+import { DataContext } from "../utils/Contexts";
 
 export const CommentsList = () => {
-  const [currentUser, setCurrentUser] = useState<CurrentUser>(data.currentUser);
   const [datas, setDatas] = useState<CommentProps[]>([]);
   const [activeReplyIndex, setActiveReplyIndex] = useState(-1);
   const [isLoading, setIsLoading] = useState(true);
+  const user = useContext(DataContext);
+
   const commentObj: newCommentObj = {
-    author: currentUser._id,
+    author: user._id,
     createdAt: "",
     content: "",
   };
@@ -36,11 +37,13 @@ export const CommentsList = () => {
     return <Loading></Loading>;
   }
 
+  console.log(datas);
   return (
-    <div className="flex flex-col gap-4 w-[600px] desktop:w-[700px]">
+    <div className="flex flex-col gap-4 w-[600px] desktop:w-[700px] transition-transform">
       {datas
         .filter((comment: CommentProps) => !comment.parentId)
         .map((comment: CommentProps, index: number) => {
+          console.log(comment);
           return (
             <Comment
               key={index}
@@ -49,7 +52,7 @@ export const CommentsList = () => {
               isReplyActive={activeReplyIndex === comment._id}
               {...comment}
               getReplies={getReplies}
-              currentUser={currentUser}
+              user={user}
               setDatas={setDatas}
               closeReply={closeReply}
               setIsLoading={setIsLoading}
@@ -57,8 +60,9 @@ export const CommentsList = () => {
           );
         })}
       <AddComment
+        isReplyActive={true}
         setDatas={setDatas}
-        currentUser={currentUser}
+        user={user}
         closeReply={closeReply}
         isFocus={false}
         setIsLoading={setIsLoading}

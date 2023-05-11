@@ -5,7 +5,7 @@ import { ReplyButton } from "./ReplyButton";
 interface CommentButtonGroupProps {
   isAuthor: boolean;
   isEditActive: boolean;
-  onDeleteHandler: () => void;
+  onToggleModalHandler: () => void;
   onEditHandler: () => void;
   onUpdateHandler: () => void;
   onReplyHandler: () => void;
@@ -14,7 +14,7 @@ interface CommentButtonGroupProps {
 export const CommentButtonGroup = ({
   isAuthor,
   isEditActive,
-  onDeleteHandler,
+  onToggleModalHandler,
   onEditHandler,
   onUpdateHandler,
   onReplyHandler,
@@ -24,12 +24,12 @@ export const CommentButtonGroup = ({
       {isAuthor ? (
         <CommentAuthorButtons
           isEditActive={isEditActive}
-          onDeleteHandler={onDeleteHandler}
+          onToggleModalHandler={onToggleModalHandler}
           onEditHandler={onEditHandler}
           onUpdateHandler={onUpdateHandler}
         ></CommentAuthorButtons>
       ) : (
-        <ReplyButton onReplyHandler={onReplyHandler}></ReplyButton>
+        <ReplyButton onReplyHandler={onReplyHandler} onToggleModalHandler={onToggleModalHandler}></ReplyButton>
       )}
     </>
   );

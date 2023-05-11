@@ -12,7 +12,6 @@ exports.register = async (req, res) => {
       );
     return;
   }
-
   res
     .status(401)
     .send({ message: "username or email has been used", status: false });
@@ -20,7 +19,7 @@ exports.register = async (req, res) => {
 
 exports.getUser = async (req, res) => {
   user
-    .find({})
+    .findById(req.body.id)
     .then((data) => res.send({ data }))
     .catch((err) => res.status(501).send({ message: err }));
 };

@@ -12,10 +12,12 @@ export interface CommentProps {
     _id: number;
   };
   replies?: CommentProps[];
-  parentId?: string 
+  parentId?: string;
+  upvotedBy: string[];
+  downvotedBy: string[];
 }
 
-export interface CurrentUser {
+export interface userProps {
   image: {
     png: string;
     webp: string;
@@ -25,10 +27,9 @@ export interface CurrentUser {
 }
 
 export interface Data {
-  currentUser: CurrentUser;
+  userProps: userProps;
   comments: CommentProps[];
 }
-
 
 export interface newCommentObj {
   author: string,

@@ -17,7 +17,13 @@ module.exports = (mongoose) => {
       ref: "User",
       required: true,
     },
-    likedBy: [
+    upvotedBy: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
+    downvotedBy: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",

@@ -20,13 +20,13 @@ export const ModalDelete = ({
       }}
       contentLabel="Delete Comment Modal"
       className={
-        "absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] bg-white backdrop:bg-black backdrop:backdrop-opacity-50 w-[80%] max-w-[400px] rounded-lg"
+        "font-rubik absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] p-6 bg-white backdrop:bg-black backdrop:backdrop-opacity-50 w-[80%] max-w-[400px] rounded-lg"
       }
       overlayClassName={
         "fixed top-0 bottom-0 left-0 right-0 bg-black bg-opacity-[50%]"
       }
     >
-      <div className="flex flex-col p-6 gap-3 rounded-md justify-between w-full">
+      <div className="flex flex-col gap-3 rounded-md justify-between w-full">
         <h2 className="font-bold text-lg">Delete comment</h2>
         <p>
           Are you sure you want to delete this comment? This will remove the

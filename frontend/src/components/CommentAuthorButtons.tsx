@@ -2,14 +2,14 @@ import React from "react";
 
 interface CommentAuthorButtonsProps {
   isEditActive: boolean;
-  onDeleteHandler: () => void;
+  onToggleModalHandler: () => void;
   onEditHandler: () => void;
   onUpdateHandler: () => void;
 }
 
 export const CommentAuthorButtons = ({
   isEditActive,
-  onDeleteHandler,
+  onToggleModalHandler,
   onEditHandler,
   onUpdateHandler,
 }: CommentAuthorButtonsProps) => {
@@ -27,7 +27,7 @@ export const CommentAuthorButtons = ({
         <div className="flex gap-3 px-3">
           <button
             className="flex items-center gap-1 text-softRed font-bold"
-            onClick={onDeleteHandler}
+            onClick={onToggleModalHandler}
             aria-label="delete comment"
           >
             <img src="./images/icon-delete.svg" alt="edit-icon" />

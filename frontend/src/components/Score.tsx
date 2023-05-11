@@ -2,12 +2,14 @@ import React, { useState } from "react";
 
 interface Scores {
   score: number;
+  upvotedStatus: boolean;
+  downvotedStatus: boolean;
 }
 
-export const Score = ({ score }: Scores) => {
+export const Score = ({ score, upvotedStatus, downvotedStatus }: Scores) => {
   const [Score, setScore] = useState(score);
-  const [upvote, setUpvote] = useState(false);
-  const [downvote, setDownvote] = useState(false);
+  const [upvote, setUpvote] = useState(upvotedStatus);
+  const [downvote, setDownvote] = useState(downvotedStatus);
 
   const setUpVoteStatus = (status: boolean) => {
     setUpvote(status);
