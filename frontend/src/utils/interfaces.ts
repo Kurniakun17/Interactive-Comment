@@ -1,5 +1,5 @@
 export interface CommentProps {
-  id: number;
+  _id: number;
   content: string;
   createdAt: string;
   score: number;
@@ -12,7 +12,7 @@ export interface CommentProps {
     _id: number;
   };
   replies?: CommentProps[];
-  replyingTo?: string;
+  parentId?: string 
 }
 
 export interface CurrentUser {
@@ -28,3 +28,11 @@ export interface Data {
   currentUser: CurrentUser;
   comments: CommentProps[];
 }
+
+
+export interface newCommentObj {
+  author: string,
+  content: string,
+  createdAt: string,
+  parentId?: string
+} 

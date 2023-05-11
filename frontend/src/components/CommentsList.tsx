@@ -1,28 +1,32 @@
 import React, { useEffect, useState } from "react";
 import data from "../utils/data.json";
-import * as Types from "../utils/interfaces";
+import { CommentProps, CurrentUser, newCommentObj } from "../utils/interfaces";
 import { Comment } from "./Comment";
 import { AddComment } from "./AddComment";
-import { fetchData } from "../utils/helpers";
+import { fetchData } from "../utils/fetch";
 import { Loading } from "./Loading";
 
 export const CommentsList = () => {
-  const [currentUser, setCurrentUser] = useState<Types.CurrentUser>(
-    data.currentUser
-  );
-  const [datas, setDatas] = useState<Types.CommentProps[]>([]);
+  const [currentUser, setCurrentUser] = useState<CurrentUser>(data.currentUser);
+  const [datas, setDatas] = useState<CommentProps[]>([]);
   const [activeReplyIndex, setActiveReplyIndex] = useState(-1);
   const [isLoading, setIsLoading] = useState(true);
+  const commentObj: newCommentObj = {
+    author: currentUser._id,
+    createdAt: "",
+    content: "",
+  };
 
   useEffect(() => {
-    const fetchDataAsync = async () => {
-      const res = await fetchData();
-      console.log(res);
-      setDatas(res);
-      setIsLoading(false);
-    };
-    fetchDataAsync();
+    fetchData(setDatas, setIsLoading);
   }, []);
+
+  const getReplies = (parentId: number): CommentProps[] => {
+    const replies = datas.filter(
+      (comment) => comment.parentId === parentId.toString()
+    );
+    return replies;
+  };
 
   const closeReply = () => {
     setActiveReplyIndex(-1);
@@ -34,27 +38,31 @@ export const CommentsList = () => {
 
   return (
     <div className="flex flex-col gap-4 w-[600px] desktop:w-[700px]">
-      {datas.map((comment: Types.CommentProps, index: number) => {
-        return (
-          <Comment
-            key={index}
-            activeReplyIndex={activeReplyIndex}
-            setActiveReplyIndex={setActiveReplyIndex}
-            isReplyActive={activeReplyIndex === comment.id}
-            {...comment}
-            currentUser={currentUser}
-            setDatas={setDatas}
-            closeReply={closeReply}
-          ></Comment>
-        );
-      })}
+      {datas
+        .filter((comment: CommentProps) => !comment.parentId)
+        .map((comment: CommentProps, index: number) => {
+          return (
+            <Comment
+              key={index}
+              activeReplyIndex={activeReplyIndex}
+              setActiveReplyIndex={setActiveReplyIndex}
+              isReplyActive={activeReplyIndex === comment._id}
+              {...comment}
+              getReplies={getReplies}
+              currentUser={currentUser}
+              setDatas={setDatas}
+              closeReply={closeReply}
+              setIsLoading={setIsLoading}
+            ></Comment>
+          );
+        })}
       <AddComment
         setDatas={setDatas}
         currentUser={currentUser}
-        authorId={currentUser._id}
         closeReply={closeReply}
         isFocus={false}
-        type="Add Comment"
+        setIsLoading={setIsLoading}
+        commentObj={commentObj}
       ></AddComment>
     </div>
   );

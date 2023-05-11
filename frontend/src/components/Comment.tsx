@@ -4,7 +4,11 @@ import { TopSection } from "./TopSection";
 import { BottomSection } from "./BottomSection";
 import * as Types from "../utils/interfaces";
 import { AddComment } from "./AddComment";
-import { deleteComment, editComment } from "../utils/helpers";
+import {
+  deleteComment,
+  editComment,
+  generateNewComment,
+} from "../utils/helpers";
 import Modal from "react-modal";
 import { ModalDelete } from "./ModalDelete";
 import { Score } from "./Score";
@@ -15,27 +19,37 @@ interface Comments extends CommentProps {
   isReplyActive: boolean;
   setDatas: React.Dispatch<React.SetStateAction<Types.CommentProps[]>>;
   setActiveReplyIndex: React.Dispatch<React.SetStateAction<number>>;
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
   closeReply: () => void;
+  getReplies: (parentId: number) => Types.CommentProps[];
 }
 
 export const Comment = ({
-  id,
+  _id,
   content,
   createdAt,
   score,
   author,
   replies,
   currentUser,
-  replyingTo,
   activeReplyIndex,
   isReplyActive,
+  getReplies,
   setDatas,
   setActiveReplyIndex,
+  setIsLoading,
   closeReply,
 }: Comments) => {
   const [isEditActive, setIsEditActive] = useState(false);
   const [isModalActive, setIsModalActive] = useState(false);
   const editInput = useRef(content);
+  const childrenComment: Types.CommentProps[] = getReplies(_id);
+  const commentObj: Types.newCommentObj = {
+    author: currentUser._id,
+    content: "",
+    createdAt: "",
+    parentId: _id.toString(),
+  };
 
   const onInputChangeHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     editInput.current = e.target.value;
@@ -46,9 +60,9 @@ export const Comment = ({
   };
 
   const onUpdateHandler = () => {
-    setDatas((prev: Types.CommentProps[]) => {
-      editComment(prev, id, editInput.current);
-      return [...prev];
+    setDatas((prev: CommentProps[]) => {
+      const data = [...editComment(prev, _id, editInput.current)];
+      return data;
     });
     setIsEditActive(false);
   };
@@ -60,8 +74,7 @@ export const Comment = ({
   const onModalDeleteHandler = () => {
     setIsModalActive(false);
     setDatas((prev: Types.CommentProps[]) => {
-      deleteComment(prev, id);
-      return [...prev];
+      return [...deleteComment(prev, _id)];
     });
   };
 
@@ -69,7 +82,7 @@ export const Comment = ({
     if (isReplyActive) {
       return setActiveReplyIndex(-1);
     }
-    setActiveReplyIndex(id);
+    setActiveReplyIndex(_id);
   };
 
   Modal.setAppElement("#root");
@@ -104,11 +117,11 @@ export const Comment = ({
             ></textarea>
           ) : (
             <p className="text-grayishBlue">
-              {replyingTo && (
+              {/* {replyingTo && (
                 <span className="text-moderateBlue font-bold after:content-['_']">
                   @{replyingTo}
                 </span>
-              )}
+              )} */}
               {content}
             </p>
           )}
@@ -128,25 +141,27 @@ export const Comment = ({
           closeReply={closeReply}
           setDatas={setDatas}
           currentUser={currentUser}
-          authorId={author._id.toString()}
-          replyingTo={{ id, username: author.username }}
-          type="Add Reply"
+          replyingTo={{ _id, username: author.username }}
           isFocus={true}
+          setIsLoading={setIsLoading}
+          commentObj={commentObj}
         ></AddComment>
       )}
-      {replies?.length ? (
+      {childrenComment.length > 0 ? (
         <div className="flex flex-col gap-4 border-l-[3px] mt-2 pl-4 md:pl-8 desktop:ml-9">
-          {replies.map((comment: CommentProps) => {
+          {childrenComment.map((comment: CommentProps) => {
             return (
               <Comment
-                key={`${comment.id} reply`}
+                key={`${comment._id} reply`}
                 activeReplyIndex={activeReplyIndex}
-                isReplyActive={activeReplyIndex === comment.id}
+                isReplyActive={activeReplyIndex === comment._id}
                 setActiveReplyIndex={setActiveReplyIndex}
                 currentUser={currentUser}
                 {...comment}
                 setDatas={setDatas}
                 closeReply={closeReply}
+                getReplies={getReplies}
+                setIsLoading={setIsLoading}
               ></Comment>
             );
           })}

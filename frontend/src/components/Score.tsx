@@ -64,7 +64,7 @@ export const Score = ({ score }: Scores) => {
   return (
     <div className="flex items-center bg-veryLightGray rounded-lg desktop:flex-col">
       <button
-        className="flex h-full items-center justify-center p-4 desktop:px-[14px] desktop:py-[15px]"
+        className="flex h-full items-center justify-center p-3 px-4 desktop:px-[14px] desktop:py-[15px]"
         onClick={upvoteHandler}
         aria-label="upvote"
       >
@@ -83,7 +83,7 @@ export const Score = ({ score }: Scores) => {
       </button>
       <h3 className="text-moderateBlue font-bold desktop:px-[14px]">{Score}</h3>
       <button
-        className="flex h-full items-center justify-center p-4 desktop:px-[14px] desktop:py-[15px]"
+        className="flex h-full items-center justify-center p-3 px-4 desktop:px-[14px] desktop:py-[15px]"
         onClick={downvoteHandler}
         aria-label="downvote"
       >

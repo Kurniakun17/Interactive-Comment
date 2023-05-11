@@ -5,4 +5,5 @@ module.exports = {
   mongoose: mongoose,
   comment: require("./comment.model")(mongoose),
   user: require("./user.model")(mongoose),
+  // replyComment: require("./replycomment.model")(mongoose),
 };

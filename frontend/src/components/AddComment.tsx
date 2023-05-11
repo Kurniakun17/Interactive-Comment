@@ -1,39 +1,44 @@
 import React, { useState } from "react";
-import { CurrentUser } from "../utils/interfaces";
-import * as Types from "../utils/interfaces";
-import { addReply, generateNewComment } from "../utils/helpers";
+import { CurrentUser, newCommentObj } from "../utils/interfaces";
+import { CommentProps } from "../utils/interfaces";
+import { generateNewComment } from "../utils/helpers";
 
 interface AddComment {
-  authorId: string;
-  isFocus: boolean;
-  type: string;
+  commentObj: newCommentObj;
   currentUser: CurrentUser;
-  replyingTo?: { id: number; username: string };
-  setDatas: React.Dispatch<React.SetStateAction<Types.CommentProps[]>>;
+  isFocus: boolean;
+  replyingTo?: { _id: number; username: string };
+  setDatas: React.Dispatch<React.SetStateAction<CommentProps[]>>;
   closeReply: () => void;
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const AddComment = ({
-  authorId,
-  type,
+  commentObj,
   currentUser,
   isFocus,
-  replyingTo,
   setDatas,
   closeReply,
+  setIsLoading,
 }: AddComment) => {
-  const [content, setContent] = useState(``);
+  const [content, setContent] = useState("");
 
   const inputHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value);
   };
 
-  const onSendHandler = () => {
-    setContent("");
-    generateNewComment({
+  const onSendHandler = async () => {
+    setIsLoading(true);
+    const newcommentObj = {
+      ...commentObj,
       content,
-      authorId,
+    };
+    const test = await generateNewComment(newcommentObj);
+    setContent("");
+    setDatas((prev: CommentProps[]) => {
+      return [...prev, test.data];
     });
+    setIsLoading(false);
     closeReply();
   };
 

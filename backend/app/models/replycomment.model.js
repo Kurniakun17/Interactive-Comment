@@ -1,5 +1,5 @@
 module.exports = (mongoose) => {
-  const commentSchema = new mongoose.Schema({
+  const replyCommentSchema = new mongoose.Schema({
     content: {
       type: String,
       required: true,
@@ -23,17 +23,8 @@ module.exports = (mongoose) => {
         ref: "User",
       },
     ],
-    parentId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Comment",
-    },
-    replies: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Comment",
-      },
-    ],
+    replies: [{ type: mongoose.Schema.Types.ObjectId, ref: "ReplyComment" }],
   });
 
-  return mongoose.model("Comment", commentSchema);
+  return mongoose.model("ReplyComment", replyCommentSchema);
 };
