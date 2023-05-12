@@ -8,6 +8,8 @@ import Modal from "react-modal";
 import { Score } from "./Score";
 import { CustomModal } from "./CustomModal";
 import { useNavigate } from "react-router-dom";
+import { ModalDeleteChildren } from "./ModalDeleteChildren";
+import { ModalLoginChildren } from "./ModalLoginChildren";
 
 interface Comments extends CommentProps {
   user: userProps;
@@ -86,12 +88,16 @@ export const Comment = ({
     setActiveReplyIndex(_id);
   };
 
+  const closeModal = () => {
+    setIsModalActive(false);
+  };
+
   Modal.setAppElement("#root");
 
   return (
     <div className="flex flex-col w-full gap-2">
       <div
-        className="flex p-4 desktop:p-6 bg-white rounded-xl gap-6 shadow-md"
+        className="flex p-4 desktop:p-6 bg-white dark:bg-slate-700 rounded-xl gap-6 shadow-md"
         id={_id.toString()}
       >
         <div className="hidden desktop:block">
@@ -125,7 +131,7 @@ export const Comment = ({
               aria-label="update comment input"
             ></textarea>
           ) : (
-            <p className="text-grayishBlue">{content}</p>
+            <p className="text-grayishBlue dark:text-lightGray">{content}</p>
           )}
           <BottomSection
             _id={_id.toString()}
@@ -180,34 +186,7 @@ export const Comment = ({
             setIsModalActive(false);
           }}
         >
-          <>
-            <h1 className="text-center font-bold font-rubik text-xl text-moderateBlue p-2">
-              Hey there! <span className="text-2xl">👋</span>
-            </h1>
-            <p className="text-justify">
-              It looks like you haven't logged in yet! If you want to get in on
-              the action and interact with this website, you gotta log in first!
-            </p>
-            <div className="flex flex-col gap-2 justify-between mt-4">
-              <button
-                className="font-bold text-white text-md pt-1.5 pb-2.5 px-4 rounded-lg w-full bg-moderateBlue"
-                onClick={() => {
-                  navigate("/login");
-                  setIsModalActive(false);
-                }}
-              >
-                Okay, I will Login
-              </button>
-              <button
-                className="font-bold text-white text-md pt-1.5 pb-2.5 px-4 rounded-lg w-full bg-slate-500"
-                onClick={() => {
-                  setIsModalActive(false);
-                }}
-              >
-                Nah, I'm just looking around
-              </button>
-            </div>
-          </>
+          <ModalLoginChildren closeModal={closeModal} ></ModalLoginChildren>
         </CustomModal>
       ) : (
         <CustomModal
@@ -216,31 +195,12 @@ export const Comment = ({
             setIsModalActive(false);
           }}
         >
-          <div className="flex flex-col gap-3 rounded-md justify-between w-full">
-            <h2 className="font-bold text-lg">Delete comment</h2>
-            <p>
-              Are you sure you want to delete this comment? This will remove the
-              comment and can't be undone.
-            </p>
-            <div className="flex gap-2 justify-between mt-2">
-              <button
-                onClick={() => {
-                  setIsModalActive(false);
-                }}
-                className="text-white text-md bg-slate-500 pt-2 pb-2.5 px-4 rounded-lg w-full"
-              >
-                NO, CANCEL
-              </button>
-              <button
-                className="text-white text-md bg-softRed pt-1.5 pb-2.5 px-4 rounded-lg w-full"
-                onClick={() => {
-                  onModalDeleteHandler(_id.toString());
-                }}
-              >
-                YES, DELETE
-              </button>
-            </div>
-          </div>
+          <ModalDeleteChildren
+            closeModal={closeModal}
+            onModalDeleteHandler={() => {
+              onModalDeleteHandler(_id.toString());
+            }}
+          />
         </CustomModal>
       )}
     </div>

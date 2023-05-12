@@ -5,7 +5,7 @@ export const DataContext = createContext({
   user: {} as userProps,
   loading: true,
   setLoading: (boolean: boolean) => {},
-  setUser: (username: string) => {}
+  setUser: (username: string, _id: string) => {}
 });
 
 export const ThemeContext = createContext({

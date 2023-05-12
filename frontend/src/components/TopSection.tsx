@@ -41,13 +41,15 @@ export const TopSection = ({
           src={author.image.webp}
           alt={author.username}
         />
-        <h2 className="text-darkBlue font-bold">{author.username}</h2>
+        <h2 className="text-darkBlue dark:text-white font-bold">
+          {author.username}
+        </h2>
         {user.username === author.username && (
           <div className="px-2 py-0.5 text-[10px] rounded text-white bg-moderateBlue">
             <p>you</p>
           </div>
         )}
-        <p className="text-grayishBlue">
+        <p className="text-grayishBlue dark:text-lightGray">
           <ReactTimeAgo date={parseInt(createdAt)} locale="en-US" />
         </p>
       </div>

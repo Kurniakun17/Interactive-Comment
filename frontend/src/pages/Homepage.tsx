@@ -3,7 +3,6 @@ import { CommentsList } from "../components/CommentsList";
 import { fetchData } from "../utils/fetch";
 import { CommentProps, newCommentObj } from "../utils/interfaces";
 import { DataContext } from "../utils/Contexts";
-import { Loading } from "../components/Loading";
 import { Navbar } from "../components/Navbar";
 import { AddComment } from "../components/AddComment";
 
@@ -33,16 +32,18 @@ export default function Homepage() {
   };
 
   return (
-    <div className="font-rubik flex flex-col w-[90%] max-w-[600px] desktop:max-w-[700px] items-center min-h-screen gap-4">
-      <Navbar></Navbar>
-      <CommentsList
-        closeReply={closeReply}
-        getReplies={getReplies}
-        activeReplyIndex={activeReplyIndex}
-        setActiveReplyIndex={setActiveReplyIndex}
-        setDatas={setDatas}
-        datas={datas}
-      ></CommentsList>
+    <div className="font-rubik flex flex-col w-[90%] max-w-[600px] desktop:max-w-[700px] items-center justify-between pb-4 gap-4">
+      <div className="flex flex-col w-full h-full gap-4">
+        <Navbar></Navbar>
+        <CommentsList
+          closeReply={closeReply}
+          getReplies={getReplies}
+          activeReplyIndex={activeReplyIndex}
+          setActiveReplyIndex={setActiveReplyIndex}
+          setDatas={setDatas}
+          datas={datas}
+        ></CommentsList>
+      </div>
       <AddComment
         isReplyActive={true}
         setDatas={setDatas}

@@ -68,14 +68,14 @@ export const Score = ({
   };
 
   return (
-    <div className="flex items-center bg-veryLightGray rounded-lg desktop:flex-col">
+    <div className="flex items-center bg-veryLightGray dark:bg-slate-500 rounded-lg desktop:flex-col">
       <button
         className="flex h-full items-center justify-center p-3 px-4 desktop:px-[14px] desktop:py-[15px]"
         onClick={upvoteHandler}
         aria-label="upvote"
       >
         <svg
-          className="text-[#C5C6EF] data-[clicked=true]:text-moderateBlue"
+          className="text-[#C5C6EF] data-[clicked=true]:text-moderateBlue dark:text-slate-100 dark:data-[clicked=true]:text-indigo-400"
           data-clicked={upvote}
           width="11"
           height="11"
@@ -87,14 +87,16 @@ export const Score = ({
           />
         </svg>
       </button>
-      <h3 className="text-moderateBlue font-bold desktop:px-[14px]">{Score}</h3>
+      <h3 className="text-moderateBlue font-bold desktop:px-[14px] dark:text-white">
+        {Score}
+      </h3>
       <button
         className="flex h-full items-center justify-center p-3 px-4 desktop:px-[14px] desktop:py-[15px]"
         onClick={downvoteHandler}
         aria-label="downvote"
       >
         <svg
-          className="text-[#C5C6EF] data-[clicked=true]:text-moderateBlue"
+          className="text-[#C5C6EF] data-[clicked=true]:text-moderateBlue dark:text-slate-300 dark:data-[clicked=true]:text-indigo-400"
           data-clicked={downvote}
           width="11"
           height="3"

@@ -1,9 +1,9 @@
 import React, { useContext, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { DataContext } from "../utils/Contexts";
-import { loginHandler } from "../utils/helpers";
+import { registerHandler } from "../utils/helpers";
 
-export const Login = () => {
+export const Register = () => {
   const usernameInput = useRef<HTMLInputElement>(null);
   const passwordInput = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
@@ -14,7 +14,7 @@ export const Login = () => {
       typeof usernameInput.current?.value === "string" &&
       typeof passwordInput.current?.value === "string"
     ) {
-      const data = await loginHandler(
+      const data = await registerHandler(
         usernameInput.current?.value,
         passwordInput.current?.value
       );
@@ -26,7 +26,7 @@ export const Login = () => {
   return (
     <div className=" self-center flex flex-col gap-2 bg-slate-700 w-[80%] max-w-[400px] rounded-xl pb-10 pt-8 px-8">
       <h1 className="font-bold text-moderateBlue dark:text-white text-2xl text-center">
-        Login
+        Register
       </h1>
       <div className="flex flex-col gap-2">
         <div>
@@ -35,7 +35,7 @@ export const Login = () => {
           </label>
           <input
             id="username"
-            aria-label="username login input"
+            aria-label="username register input"
             className="mt-0.5 rounded-md w-full px-2 py-2"
             placeholder="sukma"
             type="text"
@@ -51,10 +51,10 @@ export const Login = () => {
           </label>
           <input
             id="password"
-            aria-label="username login input"
+            aria-label="password register input"
             className="mt-0.5 rounded-md w-full px-2 py-2"
             placeholder="sukma123"
-            type="passowrd"
+            type="password"
             required={true}
             min={4}
             max={14}
@@ -69,14 +69,14 @@ export const Login = () => {
         Submit
       </button>
       <p className="dark:text-white text-sm mt-4 text-center">
-        Didn't have an account yet?{" "}
+        Already have an account?{" "}
         <span
           className="text-center text-moderateBlue dark:text-indigo-300 font-bold hover:cursor-pointer"
           onClick={() => {
-            navigate("/register");
+            navigate("/login");
           }}
         >
-          Register
+          Login
         </span>
       </p>
     </div>

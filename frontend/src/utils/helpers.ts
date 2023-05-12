@@ -49,3 +49,25 @@ export const upvoteScore = (upvoteObj: voteObjProps) => {
 export const downvoteScore = (downvoteObj: voteObjProps) => {
   axios.put("http://localhost:3000/comment/downvote", downvoteObj)
 }
+
+export const loginHandler = async (username: string, password: string) => {
+  try {
+    const res = await axios.post('http://localhost:3000/user/login', {
+      username, password
+    })
+    return res.data.data[0];
+  } catch (error:any) {
+    return error.message
+  }
+}
+
+export const registerHandler = async (username: string, password: string) => {
+  try {
+    const res = await axios.post('http://localhost:3000/user/register', {
+      username, password
+    })
+    return res.data.data;
+  } catch (error:any) {
+    return error.message
+  }
+}

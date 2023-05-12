@@ -24,11 +24,9 @@ export const CommentsList = ({
 }: CommentsListProps) => {
   const { user, loading } = useContext(DataContext);
 
-
   if (loading) {
     return <Loading></Loading>;
   }
-
   return (
     <div className="flex flex-col gap-4 w-full desktop:w-[700px] transition-transform">
       {datas
