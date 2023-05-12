@@ -23,7 +23,6 @@ export const AddComment = ({
   closeReply,
 }: AddComment) => {
   const [content, setContent] = useState("");
-  const [isModalActive, setIsModalActive] = useState(isReplyActive);
   const { setLoading } = useContext(DataContext);
   const inputHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value);
@@ -35,11 +34,11 @@ export const AddComment = ({
       ...commentObj,
       content,
     };
-    const res = await generateNewComment(newcommentObj);
     setContent("");
+    const res = await generateNewComment(newcommentObj);
     ``;
     setDatas((prev: CommentProps[]) => {
-      return [res.data, ...prev].map((comment: CommentProps) => ({
+      return [...prev, res.data].map((comment: CommentProps) => ({
         ...comment,
         key: comment._id,
       }));
@@ -53,7 +52,7 @@ export const AddComment = ({
       {user.username === "" ? (
         ""
       ) : (
-        <div className="flex flex-col p-4 desktop:p-6 bg-white rounded-xl gap-4 desktop:flex-row justify-between shadow-sm">
+        <div className="flex flex-col w-full p-4 desktop:p-6 bg-white rounded-xl gap-4 desktop:flex-row justify-between shadow-md">
           <img
             className="hidden w-8 h-8 desktop:block"
             src={user.image.webp}

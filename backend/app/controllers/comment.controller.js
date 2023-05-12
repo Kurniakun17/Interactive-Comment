@@ -36,21 +36,15 @@ exports.getAllRootComments = async (req, res) => {
 
 const deleteCommentAndReplies = async (commentId) => {
   const comment = await commentModel.findById(commentId);
-
   if (!comment) {
-    // Komentar tidak ditemukan, hentikan rekursi
     return;
   }
 
-  // Hapus komentar
   await commentModel.deleteOne({ _id: commentId });
-
-  // Hapus ID komentar dari daftar komentar yang dimiliki oleh pengguna
   await userModel.findByIdAndUpdate(comment.author, {
     $pull: { comments: commentId },
   });
 
-  // Hapus semua balasan pada komentar ini
   for (let i = 0; i < comment.replies.length; i++) {
     const replyId = comment.replies[i];
     await deleteCommentAndReplies(replyId);
@@ -61,7 +55,6 @@ exports.deleteComment = async (req, res) => {
   try {
     const { id } = req.params;
 
-    // Hapus komentar beserta balasannya secara rekursif
     await deleteCommentAndReplies(id);
 
     res.send({ message: "Komentar berhasil dihapus", status: true });

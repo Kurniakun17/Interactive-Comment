@@ -8,7 +8,7 @@ export const ReplyButton = ({
   onReplyHandler: () => void;
   onToggleModalHandler: () => void;
 }) => {
-  const user = useContext(DataContext);
+  const { user } = useContext(DataContext);
 
   const onReplyClickHandler = () => {
     if (user.username === "") {

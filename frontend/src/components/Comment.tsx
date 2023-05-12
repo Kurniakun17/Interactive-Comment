@@ -76,7 +76,7 @@ export const Comment = ({
       setDatas((prev: CommentProps[]) => {
         return [...deleteComment(prev, _id)];
       });
-    }, 550);
+    }, 500);
   };
 
   const onReplyHandler = () => {
@@ -91,7 +91,7 @@ export const Comment = ({
   return (
     <div className="flex flex-col w-full gap-2">
       <div
-        className="flex p-4 desktop:p-6 bg-white rounded-xl gap-6 shadow-sm"
+        className="flex p-4 desktop:p-6 bg-white rounded-xl gap-6 shadow-md"
         id={_id.toString()}
       >
         <div className="hidden desktop:block">

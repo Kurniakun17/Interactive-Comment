@@ -4,11 +4,18 @@ import { fetchData } from "../utils/fetch";
 import { CommentProps, newCommentObj } from "../utils/interfaces";
 import { DataContext } from "../utils/Contexts";
 import { Loading } from "../components/Loading";
+import { Navbar } from "../components/Navbar";
+import { AddComment } from "../components/AddComment";
 
 export default function Homepage() {
   const [datas, setDatas] = useState<CommentProps[]>([]);
   const [activeReplyIndex, setActiveReplyIndex] = useState(-1);
-  const { user, loading, setLoading } = useContext(DataContext);
+  const { user, setLoading } = useContext(DataContext);
+  const commentObj: newCommentObj = {
+    author: user._id,
+    createdAt: "",
+    content: "",
+  };
 
   useEffect(() => {
     fetchData(setDatas, setLoading);
@@ -26,7 +33,8 @@ export default function Homepage() {
   };
 
   return (
-    <div className="bg-veryLightGray font-rubik flex justify-center items-center min-h-screen py-8 px-4">
+    <div className="font-rubik flex flex-col w-[90%] max-w-[600px] desktop:max-w-[700px] items-center min-h-screen gap-4">
+      <Navbar></Navbar>
       <CommentsList
         closeReply={closeReply}
         getReplies={getReplies}
@@ -35,6 +43,14 @@ export default function Homepage() {
         setDatas={setDatas}
         datas={datas}
       ></CommentsList>
+      <AddComment
+        isReplyActive={true}
+        setDatas={setDatas}
+        user={user}
+        closeReply={closeReply}
+        isFocus={false}
+        commentObj={commentObj}
+      ></AddComment>
     </div>
   );
 }

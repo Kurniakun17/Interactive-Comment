@@ -23,18 +23,14 @@ export const CommentsList = ({
   setDatas,
 }: CommentsListProps) => {
   const { user, loading } = useContext(DataContext);
-  const commentObj: newCommentObj = {
-    author: user._id,
-    createdAt: "",
-    content: "",
-  };
+
 
   if (loading) {
     return <Loading></Loading>;
   }
 
   return (
-    <div className="flex flex-col gap-4 w-[600px] desktop:w-[700px] transition-transform">
+    <div className="flex flex-col gap-4 w-full desktop:w-[700px] transition-transform">
       {datas
         .filter((comment: CommentProps) => !comment.parentId)
         .map((comment: CommentProps, index: number) => {
@@ -52,14 +48,6 @@ export const CommentsList = ({
             ></Comment>
           );
         })}
-      <AddComment
-        isReplyActive={true}
-        setDatas={setDatas}
-        user={user}
-        closeReply={closeReply}
-        isFocus={false}
-        commentObj={commentObj}
-      ></AddComment>
     </div>
   );
 };
