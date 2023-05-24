@@ -9,6 +9,6 @@ export const DataContext = createContext({
 });
 
 export const ThemeContext = createContext({
-  theme: '',
+  theme: 'dark' || 'light',
   toggleTheme: ()=>{}
 })

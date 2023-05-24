@@ -7,6 +7,7 @@ interface Scores {
   score: number;
   upvotedStatus: boolean;
   downvotedStatus: boolean;
+  onToggleModalHandler: () => void;
 }
 
 export const Score = ({
@@ -14,6 +15,7 @@ export const Score = ({
   score,
   upvotedStatus,
   downvotedStatus,
+  onToggleModalHandler,
 }: Scores) => {
   const [Score, setScore] = useState(score);
   const [upvote, setUpvote] = useState(upvotedStatus);
@@ -37,19 +39,29 @@ export const Score = ({
     setScore((prev: number) => prev - 1);
   };
 
-  const upvoteHandler = () => {
-    if (!upvote) {
-      increaseScore();
-      setUpVoteStatus(true);
-      if (downvote) {
-        increaseScore();
-        setDownVoteStatus(false);
-      }
-    } else {
-      decreaseScore();
-      setUpVoteStatus(false);
+  const userLoggedIn = () => {
+    if (user.username === "") {
+      onToggleModalHandler();
+      return false;
     }
-    upvoteScore(voteObj);
+    return true;
+  };
+
+  const upvoteHandler = () => {
+    if (userLoggedIn()) {
+      if (!upvote) {
+        increaseScore();
+        setUpVoteStatus(true);
+        if (downvote) {
+          increaseScore();
+          setDownVoteStatus(false);
+        }
+      } else {
+        decreaseScore();
+        setUpVoteStatus(false);
+      }
+      upvoteScore(voteObj);
+    }
   };
 
   const downvoteHandler = () => {
@@ -68,7 +80,7 @@ export const Score = ({
   };
 
   return (
-    <div className="flex items-center bg-veryLightGray dark:bg-slate-500 rounded-lg desktop:flex-col">
+    <div className="flex items-center bg-veryLightGray dark:bg-[#333841] rounded-lg desktop:flex-col">
       <button
         className="flex h-full items-center justify-center p-3 px-4 desktop:px-[14px] desktop:py-[15px]"
         onClick={upvoteHandler}

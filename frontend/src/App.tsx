@@ -8,11 +8,12 @@ import { userProps } from "./utils/interfaces";
 import { Loading } from "./components/Loading";
 import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
+import { getThemeLS } from "./utils/localStorageUtils";
 
 function App() {
   const [userData, setUserData] = useState<userProps>(data.user);
   const [isLoading, setIsLoading] = useState(true);
-  const [theme, setTheme] = useState("dark");
+  const [theme, setTheme] = useState(getThemeLS());
 
   useEffect(() => {
     if (theme === "dark") {
@@ -31,15 +32,17 @@ function App() {
   const toggleTheme = () => {
     setTheme(() => {
       if (theme === "light") {
+        localStorage.setItem("theme", "dark");
         return "dark";
       }
+      localStorage.setItem("theme", "light");
       return "light";
     });
     document.body.classList.toggle("dark");
   };
 
   return (
-    <div className="bg-veryLightGray dark:bg-slate-900 flex justify-center min-h-screen">
+    <div className="bg-veryLightGray dark:bg-[#151515] flex justify-center min-h-screen">
       <DataContext.Provider
         value={{
           user: userData,

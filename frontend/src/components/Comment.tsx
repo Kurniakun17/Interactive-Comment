@@ -48,8 +48,6 @@ export const Comment = ({
     parentId: _id.toString(),
   };
 
-  const navigate = useNavigate();
-
   const onInputChangeHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     editInput.current = e.target.value;
   };
@@ -93,11 +91,10 @@ export const Comment = ({
   };
 
   Modal.setAppElement("#root");
-
   return (
     <div className="flex flex-col w-full gap-2">
       <div
-        className="flex p-4 desktop:p-6 bg-white dark:bg-slate-700 rounded-xl gap-6 shadow-md"
+        className="flex p-4 desktop:p-6 bg-white dark:bg-[#232529] rounded-xl gap-6 shadow-md"
         id={_id.toString()}
       >
         <div className="hidden desktop:block">
@@ -106,6 +103,7 @@ export const Comment = ({
             score={score}
             upvotedStatus={upvotedBy.includes(user._id)}
             downvotedStatus={downvotedBy.includes(user._id)}
+            onToggleModalHandler={onToggleModalHandler}
           ></Score>
         </div>
         <div className="flex flex-col gap-4 w-full">
@@ -122,7 +120,7 @@ export const Comment = ({
           ></TopSection>
           {isEditActive ? (
             <textarea
-              className="border-2 rounded px-4 py-2 h-24 resize-none"
+              className="border-2 dark:border-slate-500 dark:bg-[#333841]  dark:text-white dark:focus:border-none focus:outline-moderateBlue rounded px-4 py-2 h-24 resize-none"
               required={true}
               defaultValue={content}
               onChange={(e) => {
@@ -159,7 +157,7 @@ export const Comment = ({
         ></AddComment>
       )}
       {childrenComment.length > 0 ? (
-        <div className="flex flex-col gap-4 border-l-[3px] mt-2 pl-4 md:pl-8 desktop:ml-9">
+        <div className="flex flex-col gap-4 border-l-[3px] dark:border-slate-800 mt-2 pl-4 md:pl-8 desktop:ml-9">
           {childrenComment.map((comment: CommentProps) => {
             return (
               <Comment
@@ -186,7 +184,7 @@ export const Comment = ({
             setIsModalActive(false);
           }}
         >
-          <ModalLoginChildren closeModal={closeModal} ></ModalLoginChildren>
+          <ModalLoginChildren closeModal={closeModal}></ModalLoginChildren>
         </CustomModal>
       ) : (
         <CustomModal

@@ -24,7 +24,7 @@ export const Register = () => {
   };
 
   return (
-    <div className=" self-center flex flex-col gap-2 bg-slate-700 w-[80%] max-w-[400px] rounded-xl pb-10 pt-8 px-8">
+    <div className=" self-center flex flex-col gap-2 bg-white dark:bg-slate-700 w-[80%] max-w-[400px] rounded-xl pb-10 pt-8 px-8">
       <h1 className="font-bold text-moderateBlue dark:text-white text-2xl text-center">
         Register
       </h1>
@@ -36,7 +36,7 @@ export const Register = () => {
           <input
             id="username"
             aria-label="username register input"
-            className="mt-0.5 rounded-md w-full px-2 py-2"
+            className="border-2 dark:text-white rounded px-4 py-2 w-full resize-none desktop:w-full hover:cursor-pointer dark:bg-gray-600 hover:border-lightGrayish focus:outline-moderateBlue focus:cursor-text"
             placeholder="sukma"
             type="text"
             required={true}
@@ -52,7 +52,7 @@ export const Register = () => {
           <input
             id="password"
             aria-label="password register input"
-            className="mt-0.5 rounded-md w-full px-2 py-2"
+            className="border-2 dark:text-white rounded px-4 py-2 w-full resize-none desktop:w-full hover:cursor-pointer dark:bg-gray-600 hover:border-lightGrayish focus:outline-moderateBlue focus:cursor-text"
             placeholder="sukma123"
             type="password"
             required={true}

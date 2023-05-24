@@ -9,8 +9,8 @@ export const ModalDeleteChildren = ({
 }) => {
   return (
     <div className="flex flex-col gap-3 rounded-md justify-between w-full">
-      <h2 className="font-bold text-lg">Delete comment</h2>
-      <p>
+      <h2 className="font-bold text-lg dark:text-white">Delete comment</h2>
+      <p className="dark:text-white">
         Are you sure you want to delete this comment? This will remove the
         comment and can't be undone.
       </p>

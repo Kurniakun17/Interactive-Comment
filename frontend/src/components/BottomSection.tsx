@@ -34,6 +34,7 @@ export const BottomSection = ({
         score={score}
         upvotedStatus={upvotedStatus}
         downvotedStatus={downvotedStatus}
+        onToggleModalHandler={onToggleModalHandler}
       ></Score>
       <CommentButtonGroup
         isAuthor={isAuthor}

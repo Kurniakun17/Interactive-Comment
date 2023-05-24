@@ -52,7 +52,7 @@ export const AddComment = ({
       {user.username === "" ? (
         ""
       ) : (
-        <div className="flex flex-col w-full p-4 desktop:p-6 bg-white dark:bg-slate-700 rounded-xl gap-4 desktop:flex-row justify-between shadow-md">
+        <div className="flex flex-col w-full p-4 desktop:p-6 bg-white dark:bg-[#232529] rounded-xl gap-4 desktop:flex-row justify-between shadow-md">
           <img
             className="hidden w-8 h-8 desktop:block"
             src={user.image.webp}
@@ -61,7 +61,7 @@ export const AddComment = ({
           <textarea
             onChange={(e) => inputHandler(e)}
             value={content}
-            className="border-2 dark:text-white rounded px-4 py-2 h-24 resize-none desktop:w-full hover:cursor-pointer dark:bg-gray-600 hover:border-lightGrayish focus:outline-moderateBlue focus:cursor-text"
+            className="border-2 dark:border-slate-500 dark:text-white rounded px-4 py-2 h-24 resize-none desktop:w-full hover:cursor-pointer dark:bg-[#333841] hover:border-lightGrayish focus:outline-moderateBlue focus:cursor-text"
             placeholder="Add a comment...."
             required={true}
             autoFocus={isFocus}
