@@ -78,6 +78,17 @@ export const Login = () => {
           Register
         </span>
       </p>
+      <p className="text-sm text-center">
+        Login as a{" "}
+        <span
+          className="text-moderateBlue font-bold"
+          onClick={() => {
+            navigate("/home");
+          }}
+        >
+          Guest
+        </span>
+      </p>
     </div>
   );
 };
