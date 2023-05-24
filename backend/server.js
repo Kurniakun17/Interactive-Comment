@@ -16,4 +16,4 @@ const mongooseConfig = {
 
 db.mongoose.connect(db.url, mongooseConfig);
 
-app.listen(PORT, '0.0.0.0');
+app.listen(PORT, '0.0.0.0', ()=>{console.log("dijalankan pada port", PORT)});
