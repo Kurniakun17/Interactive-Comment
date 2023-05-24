@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 const db = require("./app/models/index");
 
 app.use(express.json());
@@ -16,4 +16,6 @@ const mongooseConfig = {
 
 db.mongoose.connect(db.url, mongooseConfig);
 
-app.listen(PORT, '0.0.0.0', ()=>{console.log("dijalankan pada port", PORT)});
+app.listen(PORT, "0.0.0.0", () => {
+  console.log("dijalankan pada port", PORT);
+});
