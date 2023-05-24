@@ -7,7 +7,7 @@ export const fetchData = async (
   setIsLoading: (bool: boolean) => void
 ) => {
   try {
-    const res = await axios.get("54.254.208.211:5000/comment");
+    const res = await axios.get("http://54.254.208.211:5000/comment");
     setDatas(res.data.data);
     setIsLoading(false);
   } catch (error: any) {
