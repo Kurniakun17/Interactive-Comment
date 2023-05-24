@@ -7,7 +7,7 @@ export const generateNewComment = async (
   try {
     const createdAt = Date.now().toString();
     newCommentObj.createdAt = createdAt;
-    const res = await axios.post("http://54.254.208.211:5000/comment/addComment", newCommentObj)
+    const res = await axios.post("https://interactive-comment-production.up.railway.app/comment/addComment", newCommentObj)
     return res.data;
   } catch (error) {
     throw error;
@@ -19,7 +19,7 @@ export const editComment =  (
   id:number,
   updatedComment: string
 ) : CommentProps[] => {
-  axios.put('http://54.254.208.211:5000/comment/' + id, {
+  axios.put('https://interactive-comment-production.up.railway.app/comment/' + id, {
     content: updatedComment
   })
   const comment = comments.filter((comment:CommentProps)=> comment._id === id);
@@ -29,7 +29,7 @@ export const editComment =  (
 
 export const deleteComment = (comments: CommentProps[], id: number): CommentProps[] => {
   try {
-    axios.delete('http://54.254.208.211:5000/comment/' + id);
+    axios.delete('https://interactive-comment-production.up.railway.app/comment/' + id);
     return comments.filter((comment: CommentProps) => comment._id !== id); 
   } catch (error: any) {
     console.log(error.message);
@@ -43,16 +43,16 @@ type voteObjProps = {
 }
 
 export const upvoteScore = (upvoteObj: voteObjProps) => {
-  axios.put("http://54.254.208.211:5000/comment/upvote", upvoteObj)
+  axios.put("https://interactive-comment-production.up.railway.app/comment/upvote", upvoteObj)
 }
 
 export const downvoteScore = (downvoteObj: voteObjProps) => {
-  axios.put("http://54.254.208.211:5000/comment/downvote", downvoteObj)
+  axios.put("https://interactive-comment-production.up.railway.app/comment/downvote", downvoteObj)
 }
 
 export const loginHandler = async (username: string, password: string) => {
   try {
-    const res = await axios.post('http://54.254.208.211:5000/user/login', {
+    const res = await axios.post('https://interactive-comment-production.up.railway.app/user/login', {
       username, password
     })
     return res.data.data[0];
@@ -63,7 +63,7 @@ export const loginHandler = async (username: string, password: string) => {
 
 export const registerHandler = async (username: string, password: string) => {
   try {
-    const res = await axios.post('http://54.254.208.211:5000/user/register', {
+    const res = await axios.post('https://interactive-comment-production.up.railway.app/user/register', {
       username, password
     })
     return res.data.data;
