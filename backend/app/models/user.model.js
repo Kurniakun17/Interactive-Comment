@@ -8,15 +8,9 @@ module.exports = (mongoose) => {
       type: String,
       required: true,
     },
-    image: {
-      png: {
-        type: String,
-        default: "./images/avatars/image-juliusomo.png",
-      },
-      webp: {
-        type: String,
-        default: "./images/avatars/image-juliusomo.webp",
-      },
+    profilePicture: {
+      type: String,
+      required: true,
     },
     comments: [
       {

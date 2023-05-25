@@ -16,7 +16,7 @@ exports.addComment = async (req, res) => {
     user.save();
     const newComment = await commentModel
       .findById(newCommentRaw._id)
-      .populate("author", "username image");
+      .populate("author", "username profilePicture");
     res.send({ data: newComment, status: true });
   } catch (error) {
     res.status(501).send({ message: error.message, status: false });
@@ -27,7 +27,7 @@ exports.getAllRootComments = async (req, res) => {
   try {
     const data = await commentModel
       .find({})
-      .populate("author", "username image");
+      .populate("author", "username profilePicture");
     res.send({ data, status: true });
   } catch (error) {
     return res.status(501).send({ message: error.message, status: false });

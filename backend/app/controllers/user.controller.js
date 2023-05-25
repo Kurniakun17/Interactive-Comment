@@ -1,5 +1,18 @@
 const userModel = require("../models/index").user;
 
+exports.checkUsername = async (req, res) => {
+  try {
+    const { username } = req.body;
+    const existUsername = await userModel.findOne({ username });
+    if (existUsername) {
+      return res.send({ data: true });
+    }
+    return res.send({ data: false });
+  } catch (error) {
+    res.status(501).send({ message: error.message });
+  }
+};
+
 exports.register = async (req, res) => {
   const { username } = req.body;
   const existUsername = await userModel.findOne({ username });
@@ -20,7 +33,9 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
   try {
     const { username, password } = req.body;
-    const user = await userModel.find({ username: username });
+    const user = await userModel.findOne({ username });
+
+    // Check if user is not exist
     if (!user) {
       return res.status(404).send({
         message:
@@ -28,8 +43,16 @@ exports.login = async (req, res) => {
         status: false,
       });
     }
-    if (user[0].password === password) {
-      return res.send({ data: user, status: true });
+
+    if (user.password === password) {
+      return res.send({
+        data: {
+          id: user._id,
+          username: user.username,
+          profilePicture: user.profilePicture,
+        },
+        status: true,
+      });
     }
     return res.send({
       message:
@@ -44,5 +67,11 @@ exports.getAllUser = async (req, res) => {
   userModel
     .find({})
     .then((data) => res.send({ data }))
-    .catch((err) => res.status(501).send({ message: err }));
+    .catch((err) => res.status(501).send({ message: err.message }));
+};
+
+exports.dropUserCollection = async (req, res) => {
+  userModel.collection.drop().then(() => {
+    res.send({ message: "sucess" });
+  });
 };
