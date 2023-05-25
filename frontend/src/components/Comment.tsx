@@ -7,7 +7,6 @@ import { deleteComment, editComment } from "../utils/helpers";
 import Modal from "react-modal";
 import { Score } from "./Score";
 import { CustomModal } from "./CustomModal";
-import { useNavigate } from "react-router-dom";
 import { ModalDeleteChildren } from "./ModalDeleteChildren";
 import { ModalLoginChildren } from "./ModalLoginChildren";
 

@@ -1,30 +1,19 @@
 import React, { useContext, useEffect, useState } from "react";
 import { CommentsList } from "../components/CommentsList";
-import { fetchData } from "../utils/fetch";
-import { CommentProps, newCommentObj } from "../utils/interfaces";
+import { newCommentObj } from "../utils/interfaces";
 import { DataContext } from "../utils/Contexts";
 import { Navbar } from "../components/Navbar";
 import { AddComment } from "../components/AddComment";
+import { useCommentData } from "../hooks/useCommentData";
 
 export default function Homepage() {
-  const [datas, setDatas] = useState<CommentProps[]>([]);
-  const [activeReplyIndex, setActiveReplyIndex] = useState(-1);
   const { user, setLoading } = useContext(DataContext);
+  const { datas, setDatas, getReplies } = useCommentData(setLoading);
+  const [activeReplyIndex, setActiveReplyIndex] = useState(-1);
   const commentObj: newCommentObj = {
     author: user._id,
     createdAt: "",
     content: "",
-  };
-
-  useEffect(() => {
-    fetchData(setDatas, setLoading);
-  }, []);
-
-  const getReplies = (parentId: number): CommentProps[] => {
-    const replies = datas.filter(
-      (comment) => comment.parentId === parentId.toString()
-    );
-    return replies;
   };
 
   const closeReply = () => {

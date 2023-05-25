@@ -10,11 +10,11 @@ export const Navbar = () => {
   const navigate = useNavigate();
 
   const onLogoutHandler = () => {
-    setUser('', '');
+    setUser("", "");
   };
 
   return (
-    <div className=" bg-white dark:bg-[#232529] flex justify-between w-full p-4 desktop:p-6 rounded-b-xl shadow-md">
+    <div className="sticky bg-white dark:bg-[#232529] flex justify-between w-full p-4 desktop:p-6 rounded-b-xl shadow-md">
       <h1 className="font-bold text-darkBlue  pt-2 dark:text-white">
         Hai, {user.username ? user.username : "guest"}
       </h1>
@@ -25,7 +25,11 @@ export const Navbar = () => {
           onClick={toggleTheme}
         >
           {theme === "light" ? (
-            <FontAwesomeIcon size="lg" className="text-slate-700" icon={faMoon}></FontAwesomeIcon>
+            <FontAwesomeIcon
+              size="lg"
+              className="text-slate-700"
+              icon={faMoon}
+            ></FontAwesomeIcon>
           ) : (
             <FontAwesomeIcon size="lg" icon={faSun} inverse></FontAwesomeIcon>
           )}

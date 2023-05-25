@@ -12,7 +12,9 @@ export const Login = () => {
   const onSubmitHandler = async () => {
     if (
       typeof usernameInput.current?.value === "string" &&
-      typeof passwordInput.current?.value === "string"
+      typeof passwordInput.current?.value === "string" &&
+      usernameInput.current.value !== "" &&
+      passwordInput.current.value !== ""
     ) {
       const data = await loginHandler(
         usernameInput.current?.value,

@@ -19,7 +19,7 @@ export const ModalLoginChildren = ({
       </p>
       <div className="flex flex-col gap-2 justify-between mt-4">
         <button
-          className="font-bold text-white text-md pt-1.5 pb-2.5 px-4 rounded-lg w-full bg-moderateBlue dark:text-indigo-200 dark:bg-slate-500 "
+          className="font-bold text-white text-md pt-1.5 pb-2.5 px-4 rounded-lg w-full bg-moderateBlue"
           onClick={() => {
             closeModal();
             navigate("/login");

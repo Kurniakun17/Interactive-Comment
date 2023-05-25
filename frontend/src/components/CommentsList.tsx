@@ -1,8 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { CommentProps, newCommentObj } from "../utils/interfaces";
 import { Comment } from "./Comment";
-import { AddComment } from "./AddComment";
-import { fetchData } from "../utils/fetch";
 import { DataContext } from "../utils/Contexts";
 import { Loading } from "./Loading";
 interface CommentsListProps {
@@ -23,29 +21,32 @@ export const CommentsList = ({
   setDatas,
 }: CommentsListProps) => {
   const { user, loading } = useContext(DataContext);
-
-  if (loading) {
-    return <Loading></Loading>;
-  }
+  console.log(loading);
   return (
-    <div className="flex flex-col gap-4 w-full desktop:w-[700px] transition-transform">
-      {datas
-        .filter((comment: CommentProps) => !comment.parentId)
-        .map((comment: CommentProps, index: number) => {
-          return (
-            <Comment
-              key={comment._id}
-              activeReplyIndex={activeReplyIndex}
-              setActiveReplyIndex={setActiveReplyIndex}
-              isReplyActive={activeReplyIndex === comment._id}
-              {...comment}
-              getReplies={getReplies}
-              user={user}
-              setDatas={setDatas}
-              closeReply={closeReply}
-            ></Comment>
-          );
-        })}
-    </div>
+    <>
+      {loading ? (
+        <Loading />
+      ) : (
+        <div className="flex flex-col gap-4 w-full desktop:w-[700px] transition-transform">
+          {datas
+            .filter((comment: CommentProps) => !comment.parentId)
+            .map((comment: CommentProps, index: number) => {
+              return (
+                <Comment
+                  key={comment._id}
+                  activeReplyIndex={activeReplyIndex}
+                  setActiveReplyIndex={setActiveReplyIndex}
+                  isReplyActive={activeReplyIndex === comment._id}
+                  {...comment}
+                  getReplies={getReplies}
+                  user={user}
+                  setDatas={setDatas}
+                  closeReply={closeReply}
+                ></Comment>
+              );
+            })}
+        </div>
+      )}
+    </>
   );
 };
