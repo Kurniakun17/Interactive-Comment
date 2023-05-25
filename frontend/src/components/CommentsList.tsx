@@ -21,7 +21,7 @@ export const CommentsList = ({
   setDatas,
 }: CommentsListProps) => {
   const { user, loading } = useContext(DataContext);
-  console.log(loading);
+
   return (
     <>
       {loading ? (

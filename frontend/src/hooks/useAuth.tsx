@@ -17,8 +17,17 @@ export const useAuth = () => {
     setIsLoading(bool);
   };
 
-  const setUser = (username: string, id: string) => {
-    setUserData((prev: userProps) => ({ ...prev, username, _id: id }));
+  const setUser = (newUserData?: userProps) => {
+    const defaultData = {
+      image: {
+        png: "",
+        webp: "",
+      },
+      username: "",
+      _id: "",
+    };
+
+    setUserData(newUserData || defaultData);
   };
 
   return { userData, setUser, isLoading, setLoading };

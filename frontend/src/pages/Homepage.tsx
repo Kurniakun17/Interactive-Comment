@@ -34,7 +34,6 @@ export default function Homepage() {
         ></CommentsList>
       </div>
       <AddComment
-        isReplyActive={true}
         setDatas={setDatas}
         user={user}
         closeReply={closeReply}

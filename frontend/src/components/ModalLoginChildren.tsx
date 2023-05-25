@@ -14,8 +14,8 @@ export const ModalLoginChildren = ({
         Hey there! <span className="text-2xl">👋</span>
       </h1>
       <p className="text-justify dark:text-white">
-        It looks like you haven't logged in yet! If you want to get in on the
-        action and interact with this website, you gotta log in first!
+        It looks like you haven't logged in yet! 😕 If you want to get in on the
+        action and interact with this website, you gotta log in first! 😉
       </p>
       <div className="flex flex-col gap-2 justify-between mt-4">
         <button

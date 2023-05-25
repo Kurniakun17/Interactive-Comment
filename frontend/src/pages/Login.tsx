@@ -20,13 +20,13 @@ export const Login = () => {
         usernameInput.current?.value,
         passwordInput.current?.value
       );
-      setUser(data.username, data._id);
+      setUser(data);
       navigate("/home");
     }
   };
 
   return (
-    <div className=" self-center flex flex-col gap-2 bg-white dark:bg-secondaryBlack w-[80%] max-w-[400px] rounded-xl pb-10 pt-8 px-8">
+    <div className="self-center flex flex-col gap-2 bg-white dark:bg-secondaryBlack w-[80%] max-w-[400px] rounded-xl pb-10 pt-8 px-8">
       <h1 className="font-bold text-moderateBlue dark:text-white text-2xl text-center">
         Login
       </h1>
@@ -64,7 +64,7 @@ export const Login = () => {
         </div>
       </div>
       <button
-        className="w-full mt-3 bg-moderateBlue dark:bg-indigo-300  text-white font-bold rounded-md py-2 hover:cursor-pointer"
+        className="w-full mt-3 bg-moderateBlue dark:bg-indigo-400  text-white font-bold rounded-md py-2 hover:cursor-pointer"
         onClick={onSubmitHandler}
       >
         Submit
@@ -72,7 +72,7 @@ export const Login = () => {
       <p className="dark:text-white text-sm mt-4 text-center">
         Didn't have an account yet?{" "}
         <span
-          className="text-center text-moderateBlue dark:text-indigo-300 font-bold hover:cursor-pointer"
+          className="text-center text-moderateBlue dark:text-indigo-400 font-bold hover:cursor-pointer"
           onClick={() => {
             navigate("/register");
           }}
@@ -83,7 +83,7 @@ export const Login = () => {
       <p className="text-sm dark:text-white text-center">
         Login as a{" "}
         <span
-          className="text-center text-moderateBlue dark:text-indigo-300 font-bold hover:cursor-pointer"
+          className="text-center text-moderateBlue dark:text-indigo-400 font-bold hover:cursor-pointer"
           onClick={() => {
             navigate("/home");
           }}

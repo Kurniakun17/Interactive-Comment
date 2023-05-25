@@ -45,7 +45,7 @@ export const TopSection = ({
           {author.username}
         </h2>
         {user.username === author.username && (
-          <div className="px-2 py-0.5 text-[10px] rounded text-white bg-moderateBlue">
+          <div className="px-2 py-0.5 text-[10px] rounded text-white bg-moderateBlue dark:bg-indigo-400">
             <p>you</p>
           </div>
         )}

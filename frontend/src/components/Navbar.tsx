@@ -10,7 +10,7 @@ export const Navbar = () => {
   const navigate = useNavigate();
 
   const onLogoutHandler = () => {
-    setUser("", "");
+    setUser();
   };
 
   return (

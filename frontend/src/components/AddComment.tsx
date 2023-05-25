@@ -6,7 +6,6 @@ import { DataContext } from "../utils/Contexts";
 
 interface AddComment {
   commentObj: newCommentObj;
-  isReplyActive: boolean;
   user: userProps;
   isFocus: boolean;
   replyingTo?: { _id: number; username: string };
@@ -16,7 +15,6 @@ interface AddComment {
 
 export const AddComment = ({
   commentObj,
-  isReplyActive,
   user,
   isFocus,
   setDatas,
@@ -27,6 +25,8 @@ export const AddComment = ({
   const inputHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value);
   };
+
+  console.log(user);
 
   const onSendHandler = async () => {
     setLoading(true);
@@ -77,7 +77,7 @@ export const AddComment = ({
           <div className="flex justify-between items-center desktop:hidden">
             <img className="w-8 h-8" src={user.image.webp} alt="" />
             <button
-              className={`bg-moderateBlue px-4 py-2 text-white rounded-md hover:cursor-pointer hover:bg-lightGrayish`}
+              className={`bg-moderateBlue dark:bg-indigo-400 px-4 py-2 text-white rounded-md hover:cursor-pointer hover:bg-lightGrayish dark:hover:bg-indigo-600`}
               onClick={onSendHandler}
               disabled={content === ""}
               aria-label="send comment"

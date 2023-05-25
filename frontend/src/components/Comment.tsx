@@ -146,7 +146,6 @@ export const Comment = ({
       </div>
       {isReplyActive && (
         <AddComment
-          isReplyActive={isReplyActive}
           closeReply={closeReply}
           setDatas={setDatas}
           user={user}

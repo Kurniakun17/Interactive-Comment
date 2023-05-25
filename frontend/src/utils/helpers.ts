@@ -74,3 +74,9 @@ export const registerHandler = async (username: string, password: string) => {
     return error.message
   }
 }
+
+export const generateProfilePic = async () => {
+  const seed=  Math.floor(Math.random() * 10000);
+  const res = await axios.get(`https://api.dicebear.com/6.x/lorelei/svg?seed=${seed}`)
+  return res.data;
+}
