@@ -2,24 +2,27 @@ import React, { useContext, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { DataContext } from "../utils/Contexts";
 import { loginHandler } from "../utils/helpers";
+import { useForm } from "../hooks/useForm";
 
 export const Login = () => {
-  const usernameInput = useRef<HTMLInputElement>(null);
-  const passwordInput = useRef<HTMLInputElement>(null);
+  const {
+    usernameInput,
+    passwordInput,
+    onUsernameInputChange,
+    onPasswordInputChange,
+  } = useForm();
+
   const navigate = useNavigate();
   const { setUser } = useContext(DataContext);
 
   const onSubmitHandler = async () => {
     if (
-      typeof usernameInput.current?.value === "string" &&
-      typeof passwordInput.current?.value === "string" &&
-      usernameInput.current.value !== "" &&
-      passwordInput.current.value !== ""
+      typeof usernameInput === "string" &&
+      typeof passwordInput === "string" &&
+      usernameInput !== "" &&
+      passwordInput !== ""
     ) {
-      const data = await loginHandler(
-        usernameInput.current?.value,
-        passwordInput.current?.value
-      );
+      const data = await loginHandler(usernameInput, passwordInput);
       setUser(data);
       navigate("/home");
     }
@@ -43,7 +46,7 @@ export const Login = () => {
             required={true}
             min={4}
             max={14}
-            ref={usernameInput}
+            onChange={onUsernameInputChange}
           />
         </div>
         <div>
@@ -59,7 +62,7 @@ export const Login = () => {
             required={true}
             min={4}
             max={14}
-            ref={passwordInput}
+            onChange={onPasswordInputChange}
           />
         </div>
       </div>

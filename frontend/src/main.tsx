@@ -8,6 +8,7 @@ import ru from "javascript-time-ago/locale/ru.json";
 
 TimeAgo.addDefaultLocale(en);
 TimeAgo.addLocale(ru);
+import "react-toastify/dist/ReactToastify.css";
 import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 

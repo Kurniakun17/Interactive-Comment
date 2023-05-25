@@ -3,7 +3,7 @@ import { CommentProps } from "../utils/interfaces";
 import { fetchCommentData } from "../utils/fetch";
 export const useCommentData = (setLoading: (boolean: boolean) => void) => {
   const [datas, setDatas] = useState<CommentProps[]>([]);
-  
+
   useEffect(() => {
     fetchCommentData(setDatas, setLoading);
   }, []);

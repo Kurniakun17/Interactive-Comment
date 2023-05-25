@@ -11,6 +11,7 @@ export const generateNewComment = async (
     const createdAt = Date.now().toString();
     newCommentObj.createdAt = createdAt;
     const res = await axios.post(`${baseURL}/comment/addComment`, newCommentObj)
+    console.log(res.data);
     return res.data;
   } catch (error) {
     throw error;
@@ -58,16 +59,17 @@ export const loginHandler = async (username: string, password: string) => {
     const res = await axios.post(`${baseURL}/user/login`, {
       username, password
     })
-    return res.data.data[0];
+    console.log(res);
+    return res.data.data;
   } catch (error:any) {
     return error.message
   }
 }
 
-export const registerHandler = async (username: string, password: string) => {
+export const registerHandler = async (username: string, password: string, profilePicture: string) => {
   try {
     const res = await axios.post(`${baseURL}/user/register`, {
-      username, password
+      username, password, profilePicture
     })
     return res.data.data;
   } catch (error:any) {
@@ -75,8 +77,15 @@ export const registerHandler = async (username: string, password: string) => {
   }
 }
 
+export const checkUsername = async (username: string) => {
+  const res = await axios.post(`${baseURL}/user`, {
+    username
+  })
+  return res.data.data;
+}
+
 export const generateProfilePic = async () => {
-  const seed=  Math.floor(Math.random() * 10000);
+  const seed=  Math.floor(Math.random() * 100000);
   const res = await axios.get(`https://api.dicebear.com/6.x/lorelei/svg?seed=${seed}`)
   return res.data;
 }

@@ -26,8 +26,6 @@ export const AddComment = ({
     setContent(e.target.value);
   };
 
-  console.log(user);
-
   const onSendHandler = async () => {
     setLoading(true);
     const newcommentObj = {
@@ -35,6 +33,7 @@ export const AddComment = ({
       content,
     };
     setContent("");
+    console.log(newcommentObj);
     const res = await generateNewComment(newcommentObj);
     ``;
     setDatas((prev: CommentProps[]) => {
@@ -55,7 +54,9 @@ export const AddComment = ({
         <div className="flex flex-col w-full p-4 desktop:p-6 bg-white dark:bg-[#232529] rounded-xl gap-4 desktop:flex-row justify-between shadow-md">
           <img
             className="hidden w-8 h-8 desktop:block"
-            src={user.image.webp}
+            src={`data:image/svg+xml;utf8,${encodeURIComponent(
+              user.profilePicture
+            )}`}
             alt="user image"
           />
           <textarea
@@ -75,7 +76,13 @@ export const AddComment = ({
             SEND
           </button>
           <div className="flex justify-between items-center desktop:hidden">
-            <img className="w-8 h-8" src={user.image.webp} alt="" />
+            <img
+              className="w-8 h-8"
+              src={`data:image/svg+xml;utf8,${encodeURIComponent(
+                user.profilePicture
+              )}`}
+              alt=""
+            />
             <button
               className={`bg-moderateBlue dark:bg-indigo-400 px-4 py-2 text-white rounded-md hover:cursor-pointer hover:bg-lightGrayish dark:hover:bg-indigo-600`}
               onClick={onSendHandler}

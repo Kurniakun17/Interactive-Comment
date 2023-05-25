@@ -4,10 +4,7 @@ export interface CommentProps {
   createdAt: string;
   score: number;
   author: {
-    image: {
-      png: string;
-      webp: string;
-    };
+    profilePicture: string;
     username: string;
     _id: number;
   };
@@ -18,12 +15,9 @@ export interface CommentProps {
 }
 
 export interface userProps {
-  image: {
-    png: string;
-    webp: string;
-  };
-  username: string;
   _id: string
+  username: string;
+  profilePicture: string;
 }
 
 export interface Data {

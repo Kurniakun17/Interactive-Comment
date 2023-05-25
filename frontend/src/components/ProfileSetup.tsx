@@ -1,14 +1,12 @@
 import { faRefresh } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useEffect, useState } from "react";
-import { generateProfilePic } from "../utils/helpers";
 import { Loading } from "./Loading";
 import { useProfilePic } from "../hooks/useProfilePic";
 
 export const ProfileSetup = ({
   onSubmitHandler,
 }: {
-  onSubmitHandler: () => void;
+  onSubmitHandler: (profilePic: string) => void;
 }) => {
   const { profilePic, loading, randomizeProfilePic } = useProfilePic();
 
@@ -16,8 +14,9 @@ export const ProfileSetup = ({
     return <Loading></Loading>;
   }
 
+
   return (
-    <div className="flex flex-col gap-6 items-center">
+    <div className='flex flex-col gap-6 items-center'>
       <h2 className="text-center font-bold text-moderateBlue text-xl">
         Setup Profile Picture 🎉
       </h2>
@@ -38,8 +37,12 @@ export const ProfileSetup = ({
           />
         </button>
       </div>
-      <button className="font-bold text-white text-md pt-1.5 pb-2.5 px-4 rounded-lg w-full bg-moderateBlue"
-      onClick={onSubmitHandler}>
+      <button
+        className="font-bold text-white text-md pt-1.5 pb-2.5 px-4 rounded-lg w-full bg-moderateBlue"
+        onClick={() => {
+          onSubmitHandler(profilePic);
+        }}
+      >
         Yes, I Love It ❤️
       </button>
     </div>

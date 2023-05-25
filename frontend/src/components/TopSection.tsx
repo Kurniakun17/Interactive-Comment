@@ -5,10 +5,7 @@ import ReactTimeAgo from "react-time-ago";
 
 type TopSection = {
   author: {
-    image: {
-      png: string;
-      webp: string;
-    };
+    profilePicture: string;
     username: string;
     _id: number;
   };
@@ -38,7 +35,9 @@ export const TopSection = ({
       <div className="flex items-center gap-3">
         <img
           className="w-8 h-8"
-          src={author.image.webp}
+          src={`data:image/svg+xml;utf8,${encodeURIComponent(
+            author.profilePicture
+          )}`}
           alt={author.username}
         />
         <h2 className="text-darkBlue dark:text-white font-bold">

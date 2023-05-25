@@ -1,28 +1,70 @@
 import React, { useContext, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { DataContext } from "../utils/Contexts";
-import { registerHandler } from "../utils/helpers";
+import { DataContext, ThemeContext } from "../utils/Contexts";
+import { checkUsername, registerHandler } from "../utils/helpers";
 import { ProfileSetup } from "../components/ProfileSetup";
+import { Theme, ToastContainer, toast } from "react-toastify";
+import { useForm } from "../hooks/useForm";
 
 export const Register = () => {
-  const [modalIndex, setModalIndex] = useState(1);
-  const usernameInput = useRef<HTMLInputElement>(null);
-  const passwordInput = useRef<HTMLInputElement>(null);
+  const {
+    usernameInput,
+    passwordInput,
+    onUsernameInputChange,
+    onPasswordInputChange,
+  } = useForm();
+  const [modalIndex, setModalIndex] = useState(0);
+
   const navigate = useNavigate();
   const { setUser } = useContext(DataContext);
+  const { theme } = useContext(ThemeContext);
 
-  const onNextButtonHandler = () => {
-    setModalIndex((prev: number) => prev + 1);
+  const onNextButtonHandler = async () => {
+    const isUsernameUsed = await checkUsername(usernameInput);
+
+    if (!isUsernameUsed) {
+      const hasUppercase = /[A-Z]/.test(passwordInput as string);
+      const hasLowercase = /[a-z]/.test(passwordInput as string);
+      const hasNumber = /\d/.test(passwordInput as string);
+      if (!(hasUppercase && hasLowercase && hasNumber)) {
+        return toast.error(
+          "Password must contain Uppercase, Lowercase, and Number!",
+          {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: (theme as Theme) || undefined,
+          }
+        );
+      }
+      setModalIndex((prev: number) => prev + 1);
+    } else {
+      toast.error("Username has already been used!", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: (theme as Theme) || undefined,
+      });
+    }
   };
 
-  const onSubmitHandler = async () => {
+  const onSubmitHandler = async (profilePic: string) => {
     if (
-      typeof usernameInput.current?.value === "string" &&
-      typeof passwordInput.current?.value === "string"
+      typeof usernameInput === "string" &&
+      typeof passwordInput === "string"
     ) {
       const data = await registerHandler(
-        usernameInput.current?.value,
-        passwordInput.current?.value
+        usernameInput,
+        passwordInput,
+        profilePic
       );
       setUser(data);
       navigate("/home");
@@ -50,7 +92,9 @@ export const Register = () => {
                 required={true}
                 min={4}
                 max={14}
-                ref={usernameInput}
+                onChange={(e) => {
+                  onUsernameInputChange(e);
+                }}
               />
             </div>
             <div>
@@ -66,12 +110,14 @@ export const Register = () => {
                 required={true}
                 min={4}
                 max={14}
-                ref={passwordInput}
+                onChange={(e) => {
+                  onPasswordInputChange(e);
+                }}
               />
             </div>
           </div>
           <button
-            className="w-full mt-3 bg-moderateBlue dark:bg-indigo-300  text-white font-bold rounded-md py-2 hover:cursor-pointer"
+            className="w-full mt-3 bg-moderateBlue dark:bg-indigo-400  text-white font-bold rounded-md py-2 hover:cursor-pointer"
             onClick={onNextButtonHandler}
           >
             Next
@@ -91,6 +137,17 @@ export const Register = () => {
       ) : (
         <ProfileSetup onSubmitHandler={onSubmitHandler} />
       )}
+      <ToastContainer
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme={(theme as Theme) || undefined}
+      />
     </div>
   );
 };

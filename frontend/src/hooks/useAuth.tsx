@@ -1,13 +1,9 @@
 import React, { useState } from "react";
 import { userProps } from "../utils/interfaces";
-import data from "../utils/data.json";
 
 export const useAuth = () => {
   const [userData, setUserData] = useState<userProps>({
-    image: {
-      png: "",
-      webp: "",
-    },
+    profilePicture: "",
     username: "",
     _id: "",
   });
@@ -19,10 +15,7 @@ export const useAuth = () => {
 
   const setUser = (newUserData?: userProps) => {
     const defaultData = {
-      image: {
-        png: "",
-        webp: "",
-      },
+      profilePicture: "",
       username: "",
       _id: "",
     };
