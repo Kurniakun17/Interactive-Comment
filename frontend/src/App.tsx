@@ -1,48 +1,20 @@
 import "./index.css";
-import data from "./utils/data.json";
 import Homepage from "./pages/Homepage";
 import { Routes, Route, Navigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { DataContext, ThemeContext } from "./utils/Contexts";
 import { userProps } from "./utils/interfaces";
-import { Loading } from "./components/Loading";
 import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
-import { getThemeLS } from "./utils/localStorageUtils";
+import { useTheme } from "./hooks/useTheme";
+import { useAuth } from "./hooks/useAuth";
 
 function App() {
-  const [userData, setUserData] = useState<userProps>(data.user);
-  const [isLoading, setIsLoading] = useState(true);
-  const [theme, setTheme] = useState(getThemeLS());
-
-  useEffect(() => {
-    if (theme === "dark") {
-      document.body.classList.add("dark");
-    }
-  }, []);
-
-  const setLoading = (bool: boolean) => {
-    setIsLoading(bool);
-  };
-
-  const setUser = (username: string, id: string) => {
-    setUserData((prev: userProps) => ({ ...prev, username, _id: id }));
-  };
-
-  const toggleTheme = () => {
-    setTheme(() => {
-      if (theme === "light") {
-        localStorage.setItem("theme", "dark");
-        return "dark";
-      }
-      localStorage.setItem("theme", "light");
-      return "light";
-    });
-    document.body.classList.toggle("dark");
-  };
+  const { userData, setUser, isLoading, setLoading } = useAuth();
+  const { theme, toggleTheme } = useTheme();
 
   return (
-    <div className="bg-veryLightGray dark:bg-[#151515] flex justify-center min-h-screen">
+    <div className="bg-veryLightGray dark:bg-primaryBlack flex justify-center min-h-screen">
       <DataContext.Provider
         value={{
           user: userData,

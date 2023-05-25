@@ -1,13 +1,16 @@
 import { CommentProps, newCommentObj } from "./interfaces";
 import axios from 'axios';
 
+// export const baseURL = 'https://interactive-comment-production.up.railway.app'  
+export const baseURL = 'http://localhost:5000'  
+
 export const generateNewComment = async (
   newCommentObj
 : newCommentObj) => {
   try {
     const createdAt = Date.now().toString();
     newCommentObj.createdAt = createdAt;
-    const res = await axios.post("https://interactive-comment-production.up.railway.app/comment/addComment", newCommentObj)
+    const res = await axios.post(`${baseURL}/comment/addComment`, newCommentObj)
     return res.data;
   } catch (error) {
     throw error;
@@ -19,7 +22,7 @@ export const editComment =  (
   id:number,
   updatedComment: string
 ) : CommentProps[] => {
-  axios.put('https://interactive-comment-production.up.railway.app/comment/' + id, {
+  axios.put(`${baseURL}/comment/'`+ id, {
     content: updatedComment
   })
   const comment = comments.filter((comment:CommentProps)=> comment._id === id);
@@ -29,7 +32,7 @@ export const editComment =  (
 
 export const deleteComment = (comments: CommentProps[], id: number): CommentProps[] => {
   try {
-    axios.delete('https://interactive-comment-production.up.railway.app/comment/' + id);
+    axios.delete(`${baseURL}/comment/`+ id);
     return comments.filter((comment: CommentProps) => comment._id !== id); 
   } catch (error: any) {
     console.log(error.message);
@@ -43,16 +46,16 @@ type voteObjProps = {
 }
 
 export const upvoteScore = (upvoteObj: voteObjProps) => {
-  axios.put("https://interactive-comment-production.up.railway.app/comment/upvote", upvoteObj)
+  axios.put(`${baseURL}/comment/upvote`, upvoteObj)
 }
 
 export const downvoteScore = (downvoteObj: voteObjProps) => {
-  axios.put("https://interactive-comment-production.up.railway.app/comment/downvote", downvoteObj)
+  axios.put(`${baseURL}/comment/downvote`, downvoteObj)
 }
 
 export const loginHandler = async (username: string, password: string) => {
   try {
-    const res = await axios.post('https://interactive-comment-production.up.railway.app/user/login', {
+    const res = await axios.post(`${baseURL}/user/login`, {
       username, password
     })
     return res.data.data[0];
@@ -63,7 +66,7 @@ export const loginHandler = async (username: string, password: string) => {
 
 export const registerHandler = async (username: string, password: string) => {
   try {
-    const res = await axios.post('https://interactive-comment-production.up.railway.app/user/register', {
+    const res = await axios.post(`${baseURL}/user/register`, {
       username, password
     })
     return res.data.data;

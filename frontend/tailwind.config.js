@@ -16,6 +16,8 @@ export default {
         grayishBlue: "hsl(211, 10%, 45%)",
         lightGray: "hsl(223, 19%, 93%)",
         veryLightGray: "hsl(228, 33%, 97%)",
+        primaryBlack: '#151515',
+        secondaryBlack: '#232529'
       },
       screens: {
         desktop: "1440px",

@@ -24,7 +24,7 @@ export const Register = () => {
   };
 
   return (
-    <div className=" self-center flex flex-col gap-2 bg-white dark:bg-slate-700 w-[80%] max-w-[400px] rounded-xl pb-10 pt-8 px-8">
+    <div className=" self-center flex flex-col gap-2 bg-white dark:bg-secondaryBlack w-[80%] max-w-[400px] rounded-xl pb-10 pt-8 px-8">
       <h1 className="font-bold text-moderateBlue dark:text-white text-2xl text-center">
         Register
       </h1>

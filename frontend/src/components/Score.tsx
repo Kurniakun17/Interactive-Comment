@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { downvoteScore, upvoteScore } from "../utils/helpers";
 import { DataContext } from "../utils/Contexts";
 
@@ -22,6 +22,13 @@ export const Score = ({
   const [downvote, setDownvote] = useState(downvotedStatus);
   const { user } = useContext(DataContext);
   const voteObj = { commentId: _id, userId: user._id };
+
+  useEffect(() => {
+    if (user.username === "") {
+      setUpvote(false);
+      setDownvote(false);
+    }
+  }, [user]);
 
   const setUpVoteStatus = (status: boolean) => {
     setUpvote(status);
