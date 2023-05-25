@@ -53,7 +53,7 @@ export const AddComment = ({
       ) : (
         <div className="flex flex-col w-full p-4 desktop:p-6 bg-white dark:bg-[#232529] rounded-xl gap-4 desktop:flex-row justify-between shadow-md">
           <img
-            className="hidden w-8 h-8 desktop:block"
+            className="hidden w-8 h-8 bg-gray-200 rounded-full desktop:block"
             src={`data:image/svg+xml;utf8,${encodeURIComponent(
               user.profilePicture
             )}`}
@@ -77,7 +77,7 @@ export const AddComment = ({
           </button>
           <div className="flex justify-between items-center desktop:hidden">
             <img
-              className="w-8 h-8"
+              className="w-8 h-8 bg-gray-200 rounded-full"
               src={`data:image/svg+xml;utf8,${encodeURIComponent(
                 user.profilePicture
               )}`}

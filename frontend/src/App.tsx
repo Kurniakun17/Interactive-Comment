@@ -1,9 +1,7 @@
 import "./index.css";
 import Homepage from "./pages/Homepage";
 import { Routes, Route, Navigate } from "react-router-dom";
-import { useState } from "react";
 import { DataContext, ThemeContext } from "./utils/Contexts";
-import { userProps } from "./utils/interfaces";
 import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
 import { useTheme } from "./hooks/useTheme";

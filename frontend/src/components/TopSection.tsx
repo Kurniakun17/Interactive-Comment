@@ -34,7 +34,7 @@ export const TopSection = ({
     <div className="flex justify-between">
       <div className="flex items-center gap-3">
         <img
-          className="w-8 h-8"
+          className="w-8 h-8 bg-gray-200 rounded-full"
           src={`data:image/svg+xml;utf8,${encodeURIComponent(
             author.profilePicture
           )}`}

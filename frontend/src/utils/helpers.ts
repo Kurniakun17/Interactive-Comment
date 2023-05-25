@@ -10,6 +10,7 @@ export const generateNewComment = async (
   try {
     const createdAt = Date.now().toString();
     newCommentObj.createdAt = createdAt;
+    console.log(newCommentObj);
     const res = await axios.post(`${baseURL}/comment/addComment`, newCommentObj)
     console.log(res.data);
     return res.data;
@@ -59,7 +60,7 @@ export const loginHandler = async (username: string, password: string) => {
     const res = await axios.post(`${baseURL}/user/login`, {
       username, password
     })
-    console.log(res);
+    console.log(res.data.data);
     return res.data.data;
   } catch (error:any) {
     return error.message

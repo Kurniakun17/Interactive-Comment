@@ -47,7 +47,7 @@ exports.login = async (req, res) => {
     if (user.password === password) {
       return res.send({
         data: {
-          id: user._id,
+          _id: user._id,
           username: user.username,
           profilePicture: user.profilePicture,
         },
