@@ -1,8 +1,8 @@
 import { CommentProps, newCommentObj } from "./interfaces";
 import axios from 'axios';
 
-export const baseURL = 'https://interactive-comment-production.up.railway.app'  
-// export const baseURL = 'http://localhost:5000'  
+// export const baseURL = 'https://interactive-comment-production.up.railway.app'  
+export const baseURL = 'http://localhost:5000'  
 
 export const generateNewComment = async (
   newCommentObj
@@ -10,9 +10,7 @@ export const generateNewComment = async (
   try {
     const createdAt = Date.now().toString();
     newCommentObj.createdAt = createdAt;
-    console.log(newCommentObj);
     const res = await axios.post(`${baseURL}/comment/addComment`, newCommentObj)
-    console.log(res.data);
     return res.data;
   } catch (error) {
     throw error;
@@ -24,7 +22,7 @@ export const editComment =  (
   id:number,
   updatedComment: string
 ) : CommentProps[] => {
-  axios.put(`${baseURL}/comment/'`+ id, {
+  axios.put(`${baseURL}/comment/`+ id, {
     content: updatedComment
   })
   const comment = comments.filter((comment:CommentProps)=> comment._id === id);
@@ -60,7 +58,6 @@ export const loginHandler = async (username: string, password: string) => {
     const res = await axios.post(`${baseURL}/user/login`, {
       username, password
     })
-    console.log(res.data.data);
     return res.data.data;
   } catch (error:any) {
     return error.message

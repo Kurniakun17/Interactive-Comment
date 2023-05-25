@@ -58,7 +58,7 @@ export const Login = () => {
             aria-label="username login input"
             className="border-2 dark:text-white rounded px-4 py-2 w-full resize-none desktop:w-full hover:cursor-pointer dark:bg-gray-600 hover:border-lightGrayish focus:outline-moderateBlue focus:cursor-text"
             placeholder="sukma123"
-            type="passowrd"
+            type="password"
             required={true}
             min={4}
             max={14}

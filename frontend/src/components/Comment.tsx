@@ -91,11 +91,8 @@ export const Comment = ({
 
   Modal.setAppElement("#root");
   return (
-    <div className="flex flex-col w-full gap-2">
-      <div
-        className="flex p-4 desktop:p-6 bg-white dark:bg-[#232529] rounded-xl gap-6 shadow-md"
-        id={_id.toString()}
-      >
+    <div className="flex flex-col w-full gap-2" id={_id.toString()}>
+      <div className="flex p-4 desktop:p-6 bg-white dark:bg-[#232529] rounded-xl gap-6 shadow-md">
         <div className="hidden desktop:block">
           <Score
             _id={_id.toString()}
@@ -155,7 +152,7 @@ export const Comment = ({
         ></AddComment>
       )}
       {childrenComment.length > 0 ? (
-        <div className="flex flex-col gap-4 border-l-[3px] dark:border-slate-800 mt-2 pl-4 md:pl-8 desktop:ml-9">
+        <div className="flex flex-col gap-4 border-l-[3px] dark:border-slate-800 mt-2 pl-4 md:pl-8">
           {childrenComment.map((comment: CommentProps) => {
             return (
               <Comment
