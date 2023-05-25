@@ -1,8 +1,8 @@
 import { CommentProps, newCommentObj } from "./interfaces";
 import axios from 'axios';
 
-// export const baseURL = 'https://interactive-comment-production.up.railway.app'  
-export const baseURL = 'http://localhost:5000'  
+export const baseURL = 'https://interactive-comment-production.up.railway.app'  
+// export const baseURL = 'http://localhost:5000'  
 
 export const generateNewComment = async (
   newCommentObj
