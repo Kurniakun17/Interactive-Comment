@@ -6,6 +6,5 @@ router.post("/", controllers.checkUsername);
 router.post("/login", controllers.login);
 router.post("/register", controllers.register);
 router.get("/drop", controllers.dropUserCollection);
-// router.post("/:id", controllers.register);
 
 module.exports = router;

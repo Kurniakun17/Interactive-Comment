@@ -35,11 +35,9 @@ exports.login = async (req, res) => {
     const { username, password } = req.body;
     const user = await userModel.findOne({ username });
 
-    // Check if user is not exist
     if (!user) {
       return res.status(404).send({
-        message:
-          "Login failed. Please double check your account and make sure that the username and password you entered are correct.",
+        message: "Account not found. Please register an account first.",
         status: false,
       });
     }
@@ -54,9 +52,10 @@ exports.login = async (req, res) => {
         status: true,
       });
     }
-    return res.send({
-      message:
-        "Login failed. Please double check your account and make sure that the username and password you entered are correct.",
+
+    return res.status(401).send({
+      message: "Incorrect password. Please try again",
+      status: false,
     });
   } catch (error) {
     return res.status(501).send({ message: error.message });

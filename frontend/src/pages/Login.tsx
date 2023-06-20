@@ -1,8 +1,9 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { DataContext } from "../utils/Contexts";
+import { DataContext, ThemeContext } from "../utils/Contexts";
 import { loginHandler } from "../utils/helpers";
 import { useForm } from "../hooks/useForm";
+import { toast, Theme, ToastContainer } from "react-toastify";
 
 export const Login = () => {
   const {
@@ -12,6 +13,7 @@ export const Login = () => {
     onPasswordInputChange,
   } = useForm();
 
+  const { theme } = useContext(ThemeContext);
   const navigate = useNavigate();
   const { setUser } = useContext(DataContext);
 
@@ -23,8 +25,22 @@ export const Login = () => {
       passwordInput !== ""
     ) {
       const data = await loginHandler(usernameInput, passwordInput);
-      setUser(data);
-      navigate("/home");
+      if (data.status) {
+        setUser(data);
+        navigate("/home");
+        return;
+      }
+
+      return toast.error(data.message, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: (theme as Theme) || undefined,
+      });
     }
   };
 
@@ -94,6 +110,17 @@ export const Login = () => {
           Guest
         </span>
       </p>
+      <ToastContainer
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme={(theme as Theme) || undefined}
+      />
     </div>
   );
 };

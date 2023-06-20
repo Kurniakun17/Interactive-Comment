@@ -17,7 +17,7 @@ export const ProfileSetup = ({
 
   return (
     <div className='flex flex-col gap-6 items-center'>
-      <h2 className="text-center font-bold text-moderateBlue text-xl">
+      <h2 className="text-center font-bold text-moderateBlue dark:text-indigo-400 text-xl">
         Setup Profile Picture 🎉
       </h2>
       <div className="relative">

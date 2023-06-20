@@ -1,8 +1,7 @@
 import { CommentProps, newCommentObj } from "./interfaces";
 import axios from 'axios';
 
-export const baseURL = 'https://interactive-comment-production.up.railway.app'  
-// export const baseURL = 'http://localhost:5000'  
+export const baseURL = process.env.NODE_ENV === 'production' ? 'https://interactive-comment-production.up.railway.app' : 'http://localhost:5000';
 
 export const generateNewComment = async (
   newCommentObj
@@ -35,7 +34,7 @@ export const deleteComment = (comments: CommentProps[], id: number): CommentProp
     axios.delete(`${baseURL}/comment/`+ id);
     return comments.filter((comment: CommentProps) => comment._id !== id); 
   } catch (error: any) {
-    console.log(error.message);
+    console.log(error);
     return [];
   }
 }
@@ -58,9 +57,9 @@ export const loginHandler = async (username: string, password: string) => {
     const res = await axios.post(`${baseURL}/user/login`, {
       username, password
     })
-    return res.data.data;
+    return res.data.data
   } catch (error:any) {
-    return error.message
+    return error.response.data
   }
 }
 
