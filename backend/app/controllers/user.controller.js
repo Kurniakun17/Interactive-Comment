@@ -48,8 +48,8 @@ exports.login = async (req, res) => {
           _id: user._id,
           username: user.username,
           profilePicture: user.profilePicture,
+          status: true,
         },
-        status: true,
       });
     }
 
