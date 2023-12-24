@@ -1,7 +1,7 @@
 import { CommentProps, newCommentObj } from "./interfaces";
 import axios from 'axios';
 
-export const baseURL = process.env.NODE_ENV === 'production' ? 'https://interactive-comment-production.up.railway.app' : 'http://localhost:5000';
+export const baseURL = process.env.NODE_ENV === 'production' ? 'https://ics-restapi.adaptable.app' : 'http://localhost:5000';
 
 export const generateNewComment = async (
   newCommentObj
